@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_chat/colors.dart';
+import 'package:intl/intl.dart';
+import 'package:my_chat/utils/colors.dart';
 import 'package:my_chat/info.dart';
 import 'package:my_chat/screens/mobile_chat_screen.dart';
 
@@ -14,6 +15,7 @@ class ContactsList extends StatelessWidget {
         shrinkWrap: true,
         itemCount: info.length,
         itemBuilder: (context, index) {
+          String locale = Localizations.localeOf(context).languageCode;
           return Column(
             children: [
               InkWell(

@@ -31,6 +31,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations: # Add this line
+    sdk: flutter
+  intl: ^0.17.0
+
+  
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -39,6 +44,7 @@ dependencies:
   firebase_auth: ^3.10.0
   cloud_firestore: ^3.4.9
   firebase_storage: ^10.3.9
+  firebase_core: ^1.23.0
 
 dev_dependencies:
   flutter_test:
@@ -56,6 +62,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  generate: true # Add this line  
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -64,7 +71,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/backgroundImage.png
+    - assets/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

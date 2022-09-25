@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_chat/colors.dart';
+import 'package:my_chat/utils/colors.dart';
 import 'package:my_chat/widgets/contacts_list.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MobileLayoutScreen extends StatelessWidget {
   const MobileLayoutScreen({Key? key}) : super(key: key);
@@ -32,23 +33,23 @@ class MobileLayoutScreen extends StatelessWidget {
               onPressed: () {},
             ),
           ],
-          bottom: const TabBar(
+          bottom: TabBar(
             indicatorColor: tabColor,
             indicatorWeight: 4,
             labelColor: tabColor,
             unselectedLabelColor: Colors.grey,
-            labelStyle: TextStyle(
+            labelStyle: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
             tabs: [
               Tab(
-                text: 'CHATS',
+                text: AppLocalizations.of(context)!.chats.toUpperCase(),
               ),
               Tab(
-                text: 'STATUS',
+                text: AppLocalizations.of(context)!.status.toUpperCase(),
               ),
               Tab(
-                text: 'CALLS',
+                text: AppLocalizations.of(context)!.calls.toUpperCase(),
               ),
             ],
           ),
