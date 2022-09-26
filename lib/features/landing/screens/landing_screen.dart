@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:my_chat/common/widgets/custom_button.dart';
+import 'package:my_chat/features/auth/screens/login_screen.dart';
+import 'package:my_chat/generated/l10n.dart';
 import 'package:my_chat/utils/colors.dart';
 import 'package:my_chat/utils/app_constants.dart';
 
@@ -23,7 +25,7 @@ class LandingScreen extends StatelessWidget {
                 const SizedBox(
                   height: 50,
                 ),
-                Text("${AppLocalizations.of(context)!.landing_title} My Chat",
+                Text("${AppLocalizations.of(context).landing_title} My Chat",
                     textAlign: TextAlign.center,
                     style: Theme.of(context)
                         .textTheme
@@ -41,7 +43,7 @@ class LandingScreen extends StatelessWidget {
                   height: size.height / 10,
                 ),
                 Text(
-                  AppLocalizations.of(context)!.landing_privacy_terms,
+                  AppLocalizations.of(context).landing_privacy_terms,
                   textAlign: TextAlign.center,
                   style: Theme.of(context)
                       .textTheme
@@ -54,8 +56,10 @@ class LandingScreen extends StatelessWidget {
                 SizedBox(
                   width: size.width < 400 ? size.width : 400,
                   child: CustomButton(
-                    text: AppLocalizations.of(context)!.agree_and_continue,
-                    callback: () {},
+                    text: AppLocalizations.of(context).agree_and_continue,
+                    callback: () {
+                      Navigator.of(context).pushNamed(LoginScreen.routeName);
+                    },
                   ),
                 ),
               ],

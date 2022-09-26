@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_chat/generated/l10n.dart';
 import 'package:my_chat/utils/colors.dart';
 import 'package:my_chat/widgets/contacts_list.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MobileLayoutScreen extends StatelessWidget {
   const MobileLayoutScreen({Key? key}) : super(key: key);
@@ -43,13 +43,13 @@ class MobileLayoutScreen extends StatelessWidget {
             ),
             tabs: [
               Tab(
-                text: AppLocalizations.of(context)!.chats.toUpperCase(),
+                text: AppLocalizations.of(context).chats.toUpperCase(),
               ),
               Tab(
-                text: AppLocalizations.of(context)!.status.toUpperCase(),
+                text: AppLocalizations.of(context).status.toUpperCase(),
               ),
               Tab(
-                text: AppLocalizations.of(context)!.calls.toUpperCase(),
+                text: AppLocalizations.of(context).calls.toUpperCase(),
               ),
             ],
           ),

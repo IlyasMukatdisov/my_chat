@@ -4,5 +4,10 @@
     "status": "Status",
     "calls": "Calls",
     "landing_privacy_terms": "Read our Privacy Policy. Tap \"Agree and continue\" to accept the Terms of Service.",
-    "agree_and_continue": "AGREE AND CONTINUE"
+    "agree_and_continue": "AGREE AND CONTINUE",
+    "enter_phone_number": "Enter phone number",
+    "page_does_not_exists": "This page doesn't exist",
+    "my_chat_need_to_verify": "My chat need to verify your phone number",
+    "pick_country": "Pick country",
+    "phone_number": "Phone number"
 }
