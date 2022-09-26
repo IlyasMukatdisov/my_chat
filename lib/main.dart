@@ -40,8 +40,9 @@ class MyApp extends StatelessWidget {
             color: backgroundColor,
             elevation: 0,
           ),
-          colorScheme:
-              ThemeData.dark().colorScheme.copyWith(secondary: tabColor),
+          colorScheme: ThemeData.dark()
+              .colorScheme
+              .copyWith(secondary: tabColor, primary: tabColor),
           scaffoldBackgroundColor: backgroundColor,
         ),
         home: const LandingScreen()
