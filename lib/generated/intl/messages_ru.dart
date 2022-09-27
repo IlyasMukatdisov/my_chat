@@ -32,6 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Ознакомьтесь с нашей Политикой конфиденциальности. Нажмите \"Принять и продолжить\", чтобы принять Условия использования."),
         "landing_title":
             MessageLookupByLibrary.simpleMessage("Добро Пожаловать в"),
+        "login_error": MessageLookupByLibrary.simpleMessage("Ошибка входа: "),
         "my_chat_need_to_verify": MessageLookupByLibrary.simpleMessage(
             "My chat необходимо проверить ваш номер телефона"),
         "page_does_not_exists":

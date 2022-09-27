@@ -31,6 +31,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "landing_privacy_terms": MessageLookupByLibrary.simpleMessage(
             "Read our Privacy Policy. Tap \"Agree and continue\" to accept the Terms of Service."),
         "landing_title": MessageLookupByLibrary.simpleMessage("Welcome to"),
+        "login_error": MessageLookupByLibrary.simpleMessage("Login error: "),
         "my_chat_need_to_verify": MessageLookupByLibrary.simpleMessage(
             "My chat need to verify your phone number"),
         "page_does_not_exists":

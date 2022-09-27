@@ -9,5 +9,6 @@
     "page_does_not_exists": "Этой страницы не существует",
     "my_chat_need_to_verify": "My chat необходимо проверить ваш номер телефона",
     "pick_country": "Выберите страну",
-    "phone_number": "Номер телефона"
+    "phone_number": "Номер телефона",
+    "login_error": "Ошибка входа: "
 }

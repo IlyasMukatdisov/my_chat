@@ -12,7 +12,6 @@ class LandingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    print(size.height);
     return Scaffold(
       body: SafeArea(
         child: LayoutBuilder(
@@ -49,10 +48,10 @@ class LandingScreen extends StatelessWidget {
                           width: size.width < 400 ? size.width : 400,
                         ),
                         size.height < 650
-                            ? SizedBox(
+                            ? const SizedBox(
                                 height: AppConstants.defaultPadding,
                               )
-                            : Spacer(),
+                            : const Spacer(),
                         Text(
                           AppLocalizations.of(context).landing_privacy_terms,
                           textAlign: TextAlign.center,

@@ -1,3 +1,4 @@
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:my_chat/common/widgets/custom_button.dart';
 import 'package:my_chat/generated/l10n.dart';
@@ -13,6 +14,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   late final TextEditingController _phoneController;
+  String _phoneCode = '';
 
   @override
   void initState() {
@@ -26,6 +28,19 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
+  void pickCountry() {
+    showCountryPicker(
+      context: context,
+      showPhoneCode:
+          true, // optional. Shows phone code before the country name.
+      onSelect: (Country country) {
+        setState(() {
+          _phoneCode = country.phoneCode;
+        });
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final appBar = AppBar(
@@ -34,8 +49,6 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
     final size = MediaQuery.of(context).size;
-
-    print(size.height);
 
     return Scaffold(
         appBar: appBar,
@@ -62,7 +75,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: AppConstants.defaultPadding,
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            pickCountry();
+                          },
                           child: Text(
                             AppLocalizations.of(context).pick_country,
                           ),
@@ -76,9 +91,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           onChanged: (value) {
                             setState(() {});
                           },
+                          maxLength: 15 - _phoneCode.length,
                           decoration: InputDecoration(
                               border: const OutlineInputBorder(),
-                              prefixText: '+998',
+                              prefixText: '+$_phoneCode',
                               labelText:
                                   AppLocalizations.of(context).phone_number,
                               hintText:

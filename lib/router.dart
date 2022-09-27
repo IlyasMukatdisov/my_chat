@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_chat/common/widgets/error_screen.dart';
 import 'package:my_chat/features/auth/screens/login_screen.dart';
+import 'package:my_chat/features/auth/screens/otp_screen.dart';
 
 import 'package:my_chat/generated/l10n.dart';
 
@@ -11,6 +12,13 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(
         builder: (context) => const LoginScreen(),
       );
+    case OtpScreen.routeName:
+      {
+        final verificationId = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (context) => OtpScreen(verificationId: verificationId),
+        );
+      }
     default:
       return MaterialPageRoute(
         builder: (context) => Scaffold(
