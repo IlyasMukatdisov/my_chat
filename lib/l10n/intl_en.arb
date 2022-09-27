@@ -10,5 +10,8 @@
     "my_chat_need_to_verify": "My chat need to verify your phone number",
     "pick_country": "Pick country",
     "phone_number": "Phone number",
-    "login_error": "Login error: "
+    "login_error": "Login error: ",
+    "verify_your_number": "Verify your number",
+    "next": "Next",
+    "we_have_send_sms": "We have send you an SMS with code. Please enter it here"
 }

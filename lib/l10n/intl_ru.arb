@@ -10,5 +10,8 @@
     "my_chat_need_to_verify": "My chat необходимо проверить ваш номер телефона",
     "pick_country": "Выберите страну",
     "phone_number": "Номер телефона",
-    "login_error": "Ошибка входа: "
+    "login_error": "Ошибка входа: ",
+    "verify_your_number": "Подтвердите ваш номер",
+    "next": "Далее",
+    "we_have_send_sms": "Мы отправили вам смс с кодом. Введите его здесь"
 }

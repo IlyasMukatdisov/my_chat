@@ -169,6 +169,36 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Verify your number`
+  String get verify_your_number {
+    return Intl.message(
+      'Verify your number',
+      name: 'verify_your_number',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next`
+  String get next {
+    return Intl.message(
+      'Next',
+      name: 'next',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We have send you an SMS with code. Please enter it here`
+  String get we_have_send_sms {
+    return Intl.message(
+      'We have send you an SMS with code. Please enter it here',
+      name: 'we_have_send_sms',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

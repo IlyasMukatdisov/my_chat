@@ -1,9 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_chat/common/utils/utils.dart';
 import 'package:my_chat/features/auth/screens/otp_screen.dart';
 import 'package:my_chat/generated/l10n.dart';
+
+final authRepositoryProvider = Provider(
+  (ref) => AuthRepository(
+    auth: FirebaseAuth.instance,
+    firestore: FirebaseFirestore.instance,
+  ),
+);
 
 class AuthRepository {
   final FirebaseAuth auth;
@@ -25,7 +33,8 @@ class AuthRepository {
           throw Exception(e.message);
         },
         codeSent: (String verificationId, int? forceResendingToken) async {
-          Navigator.pushNamed(context, OtpScreen.routeName, arguments: verificationId);
+          Navigator.pushNamed(context, OtpScreen.routeName,
+              arguments: verificationId);
         },
         codeAutoRetrievalTimeout: (verificationId) {},
       );

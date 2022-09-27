@@ -1,18 +1,21 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_chat/common/utils/utils.dart';
 import 'package:my_chat/common/widgets/custom_button.dart';
+import 'package:my_chat/features/auth/controller/auth_controller.dart';
 import 'package:my_chat/generated/l10n.dart';
 import 'package:my_chat/utils/app_constants.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   static const routeName = '/login-screen';
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   late final TextEditingController _phoneController;
   String _phoneCode = '';
 
@@ -39,6 +42,19 @@ class _LoginScreenState extends State<LoginScreen> {
         });
       },
     );
+  }
+
+  void sendPhoneNumber() {
+    String phoneNumber = _phoneController.text.trim();
+    if (_phoneCode.isNotEmpty && phoneNumber.isNotEmpty) {
+      ref.read(authControllerProvider).signInWithPhone(
+            context: context,
+            phoneNumber: "+$_phoneCode$phoneNumber",
+          );
+    } else {
+      showSnackBar(
+          context: context, text: 'Fill the phone number and country code');
+    }
   }
 
   @override
@@ -91,7 +107,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           onChanged: (value) {
                             setState(() {});
                           },
-                          maxLength: 15 - _phoneCode.length,
+                          maxLength:
+                              _phoneCode.isEmpty ? 14 : 15 - _phoneCode.length,
                           decoration: InputDecoration(
                               border: const OutlineInputBorder(),
                               prefixText: '+$_phoneCode',
@@ -106,8 +123,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 height: AppConstants.defaultPadding,
                               ),
                         CustomButton(
-                          text: 'Next',
-                          callback: () {},
+                          text: AppLocalizations.of(context).next,
+                          callback: sendPhoneNumber,
                         ),
                       ],
                     ),

@@ -34,10 +34,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "login_error": MessageLookupByLibrary.simpleMessage("Login error: "),
         "my_chat_need_to_verify": MessageLookupByLibrary.simpleMessage(
             "My chat need to verify your phone number"),
+        "next": MessageLookupByLibrary.simpleMessage("Next"),
         "page_does_not_exists":
             MessageLookupByLibrary.simpleMessage("This page doesn\'t exist"),
         "phone_number": MessageLookupByLibrary.simpleMessage("Phone number"),
         "pick_country": MessageLookupByLibrary.simpleMessage("Pick country"),
-        "status": MessageLookupByLibrary.simpleMessage("Status")
+        "status": MessageLookupByLibrary.simpleMessage("Status"),
+        "verify_your_number":
+            MessageLookupByLibrary.simpleMessage("Verify your number"),
+        "we_have_send_sms": MessageLookupByLibrary.simpleMessage(
+            "We have send you an SMS with code. Please enter it here")
       };
 }

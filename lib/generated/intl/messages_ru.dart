@@ -35,10 +35,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "login_error": MessageLookupByLibrary.simpleMessage("Ошибка входа: "),
         "my_chat_need_to_verify": MessageLookupByLibrary.simpleMessage(
             "My chat необходимо проверить ваш номер телефона"),
+        "next": MessageLookupByLibrary.simpleMessage("Далее"),
         "page_does_not_exists":
             MessageLookupByLibrary.simpleMessage("Этой страницы не существует"),
         "phone_number": MessageLookupByLibrary.simpleMessage("Номер телефона"),
         "pick_country": MessageLookupByLibrary.simpleMessage("Выберите страну"),
-        "status": MessageLookupByLibrary.simpleMessage("Статус")
+        "status": MessageLookupByLibrary.simpleMessage("Статус"),
+        "verify_your_number":
+            MessageLookupByLibrary.simpleMessage("Подтвердите ваш номер"),
+        "we_have_send_sms": MessageLookupByLibrary.simpleMessage(
+            "Мы отправили вам смс с кодом. Введите его здесь")
       };
 }
