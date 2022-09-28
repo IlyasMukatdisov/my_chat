@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
               .copyWith(secondary: tabColor, primary: tabColor),
           scaffoldBackgroundColor: backgroundColor,
         ),
-        home: UserInfoScreen()
+        home: const UserInfoScreen()
         // ResponsiveLayout(
         //   mobileScreenLayout: MobileLayoutScreen(),
         //   webScreenLayout: WebLayoutScreen(),

@@ -26,11 +26,13 @@ class AuthController {
     required BuildContext context,
     required String verificationId,
     required String userOTP,
+    required VoidCallback onSuccess
   }) {
     authRepository.verifyOTP(
       context: context,
       verificationId: verificationId,
       userOTP: userOTP,
+      onSuccess: onSuccess
     );
   }
 }

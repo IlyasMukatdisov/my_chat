@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_chat/features/auth/controller/auth_controller.dart';
+import 'package:my_chat/features/auth/screens/user_info_screen.dart';
 import 'package:my_chat/generated/l10n.dart';
 import 'package:my_chat/utils/app_constants.dart';
 
@@ -17,6 +18,9 @@ class OtpScreen extends ConsumerWidget {
           context: context,
           verificationId: verificationId,
           userOTP: value,
+          onSuccess: () {
+            Navigator.pushNamedAndRemoveUntil(context, UserInfoScreen.routeName, (route) => false,);
+          },
         );
   }
 

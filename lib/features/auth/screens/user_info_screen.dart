@@ -35,6 +35,13 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: (() {}),
+        child: const Icon(
+          Icons.save,
+          color: Colors.white,
+        ),
+      ),
       body: SafeArea(
         child: Container(
           width: size.width,
@@ -54,10 +61,23 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                   },
                   child: Stack(
                     children: [
+                      _image != null?
                       CircleAvatar(
                         radius: size.width / 6,
                         backgroundImage:
-                            (_image != null) ? FileImage(_image!) : null,
+                            FileImage(_image!),
+                        backgroundColor: _image == null ? tabColor : null,
+                        child: _image == null
+                            ? const Icon(
+                                Icons.person,
+                                size: 70,
+                                color: Colors.white,
+                              )
+                            : null,
+                      ): CircleAvatar(
+                        radius: size.width / 6,
+                        backgroundImage:
+                            const NetworkImage(AppConstants.defaultProfilePic),
                         backgroundColor: _image == null ? tabColor : null,
                         child: _image == null
                             ? const Icon(
@@ -85,10 +105,10 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
               TextFormField(
                 controller: nameController,
                 decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    labelText: AppLocalizations.of(context).name,
-                    hintText: AppLocalizations.of(context).enter_your_name,
-                    suffixIcon: const Icon(Icons.done)),
+                  border: const OutlineInputBorder(),
+                  labelText: AppLocalizations.of(context).name,
+                  hintText: AppLocalizations.of(context).enter_your_name,
+                ),
               )
             ],
           ),

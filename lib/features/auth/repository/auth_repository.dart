@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +8,7 @@ import 'package:my_chat/common/utils/utils.dart';
 import 'package:my_chat/features/auth/screens/otp_screen.dart';
 import 'package:my_chat/features/auth/screens/user_info_screen.dart';
 import 'package:my_chat/generated/l10n.dart';
+import 'package:my_chat/utils/app_constants.dart';
 
 final authRepositoryProvider = Provider(
   (ref) => AuthRepository(
@@ -51,21 +54,37 @@ class AuthRepository {
     }
   }
 
-  void verifyOTP({
-    required BuildContext context,
-    required String verificationId,
-    required String userOTP,
-  }) async {
+  void verifyOTP(
+      {required BuildContext context,
+      required String verificationId,
+      required String userOTP,
+      required VoidCallback onSuccess}) async {
     try {
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
           verificationId: verificationId, smsCode: userOTP);
       await auth.signInWithCredential(credential);
-      Navigator.pushNamedAndRemoveUntil(context, UserInfoScreen.routeName, (route) => false,);
-      } on FirebaseAuthException catch (e) {
+      onSuccess();
+    } on FirebaseAuthException catch (e) {
       showSnackBar(
         context: context,
         text: "${AppLocalizations.of(context).login_error}${e.message}",
       );
+    }
+  }
+
+  void saveUserDataToFirebase(
+      {required String name,
+      required File? profilePic,
+      required ProviderRef ref,
+      required BuildContext context}) async {
+    try {
+      final String uid = auth.currentUser!.uid;
+      String photoUrl = AppConstants.defaultProfilePic;
+      if(profilePic != null){
+        
+      }
+    } catch (e) {
+      showSnackBar(context: context, text: e.toString());
     }
   }
 }
