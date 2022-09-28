@@ -25,15 +25,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "agree_and_continue":
             MessageLookupByLibrary.simpleMessage("AGREE AND CONTINUE"),
         "calls": MessageLookupByLibrary.simpleMessage("Calls"),
+        "cant_load_image": MessageLookupByLibrary.simpleMessage(
+            "We can\'t load image from your gallery. Please try again later"),
         "chats": MessageLookupByLibrary.simpleMessage("Chats"),
         "enter_phone_number":
             MessageLookupByLibrary.simpleMessage("Enter phone number"),
+        "enter_your_name":
+            MessageLookupByLibrary.simpleMessage("Enter your name"),
         "landing_privacy_terms": MessageLookupByLibrary.simpleMessage(
             "Read our Privacy Policy. Tap \"Agree and continue\" to accept the Terms of Service."),
         "landing_title": MessageLookupByLibrary.simpleMessage("Welcome to"),
         "login_error": MessageLookupByLibrary.simpleMessage("Login error: "),
         "my_chat_need_to_verify": MessageLookupByLibrary.simpleMessage(
             "My chat need to verify your phone number"),
+        "name": MessageLookupByLibrary.simpleMessage("Name"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "page_does_not_exists":
             MessageLookupByLibrary.simpleMessage("This page doesn\'t exist"),

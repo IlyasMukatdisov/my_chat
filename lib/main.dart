@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_chat/features/auth/screens/user_info_screen.dart';
 import 'package:my_chat/generated/l10n.dart';
 import 'package:my_chat/router.dart';
 import 'package:my_chat/utils/colors.dart';
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
               .copyWith(secondary: tabColor, primary: tabColor),
           scaffoldBackgroundColor: backgroundColor,
         ),
-        home: const LandingScreen()
+        home: UserInfoScreen()
         // ResponsiveLayout(
         //   mobileScreenLayout: MobileLayoutScreen(),
         //   webScreenLayout: WebLayoutScreen(),

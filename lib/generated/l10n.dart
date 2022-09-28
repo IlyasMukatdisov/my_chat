@@ -199,6 +199,36 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `We can't load image from your gallery. Please try again later`
+  String get cant_load_image {
+    return Intl.message(
+      'We can\'t load image from your gallery. Please try again later',
+      name: 'cant_load_image',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name`
+  String get name {
+    return Intl.message(
+      'Name',
+      name: 'name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your name`
+  String get enter_your_name {
+    return Intl.message(
+      'Enter your name',
+      name: 'enter_your_name',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

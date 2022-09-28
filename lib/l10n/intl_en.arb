@@ -13,5 +13,8 @@
     "login_error": "Login error: ",
     "verify_your_number": "Verify your number",
     "next": "Next",
-    "we_have_send_sms": "We have send you an SMS with code. Please enter it here"
+    "we_have_send_sms": "We have send you an SMS with code. Please enter it here",
+    "cant_load_image": "We can't load image from your gallery. Please try again later",
+    "name": "Name",
+    "enter_your_name": "Enter your name"
 }

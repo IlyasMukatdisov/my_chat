@@ -25,9 +25,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "agree_and_continue": MessageLookupByLibrary.simpleMessage(
             "Согласен с правилами и продолжаю"),
         "calls": MessageLookupByLibrary.simpleMessage("Звонки"),
+        "cant_load_image": MessageLookupByLibrary.simpleMessage(
+            "Мы не можем загрузить изображение из вашей галереи. Пожалуйста, попробуйте позже"),
         "chats": MessageLookupByLibrary.simpleMessage("Чаты"),
         "enter_phone_number":
             MessageLookupByLibrary.simpleMessage("Введите номер телефона"),
+        "enter_your_name":
+            MessageLookupByLibrary.simpleMessage("Введите ваше имя"),
         "landing_privacy_terms": MessageLookupByLibrary.simpleMessage(
             "Ознакомьтесь с нашей Политикой конфиденциальности. Нажмите \"Принять и продолжить\", чтобы принять Условия использования."),
         "landing_title":
@@ -35,6 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "login_error": MessageLookupByLibrary.simpleMessage("Ошибка входа: "),
         "my_chat_need_to_verify": MessageLookupByLibrary.simpleMessage(
             "My chat необходимо проверить ваш номер телефона"),
+        "name": MessageLookupByLibrary.simpleMessage("Имя"),
         "next": MessageLookupByLibrary.simpleMessage("Далее"),
         "page_does_not_exists":
             MessageLookupByLibrary.simpleMessage("Этой страницы не существует"),

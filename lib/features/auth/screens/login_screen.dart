@@ -103,15 +103,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           height: AppConstants.defaultPadding,
                         ),
                         TextFormField(
+                          keyboardType: TextInputType.number,
                           controller: _phoneController,
-                          onChanged: (value) {
-                            setState(() {});
-                          },
+                          onChanged: (value) {},
                           maxLength:
                               _phoneCode.isEmpty ? 14 : 15 - _phoneCode.length,
                           decoration: InputDecoration(
                               border: const OutlineInputBorder(),
                               prefixText: '+$_phoneCode',
+                              counterText: '',
                               labelText:
                                   AppLocalizations.of(context).phone_number,
                               hintText:

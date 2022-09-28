@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_chat/common/utils/utils.dart';
 import 'package:my_chat/features/auth/screens/otp_screen.dart';
+import 'package:my_chat/features/auth/screens/user_info_screen.dart';
 import 'package:my_chat/generated/l10n.dart';
 
 final authRepositoryProvider = Provider(
@@ -30,7 +31,7 @@ class AuthRepository {
           await auth.signInWithCredential(credential);
         },
         verificationFailed: (e) {
-          throw Exception(e.message);
+          throw e;
         },
         codeSent: (String verificationId, int? forceResendingToken) async {
           Navigator.pushNamed(context, OtpScreen.routeName,
@@ -43,6 +44,28 @@ class AuthRepository {
       showSnackBar(
           context: context,
           text: "${AppLocalizations.of(context).login_error}${e.message}");
+    } catch (e) {
+      showSnackBar(
+          context: context,
+          text: "${AppLocalizations.of(context).login_error}${e.toString()}");
+    }
+  }
+
+  void verifyOTP({
+    required BuildContext context,
+    required String verificationId,
+    required String userOTP,
+  }) async {
+    try {
+      PhoneAuthCredential credential = PhoneAuthProvider.credential(
+          verificationId: verificationId, smsCode: userOTP);
+      await auth.signInWithCredential(credential);
+      Navigator.pushNamedAndRemoveUntil(context, UserInfoScreen.routeName, (route) => false,);
+      } on FirebaseAuthException catch (e) {
+      showSnackBar(
+        context: context,
+        text: "${AppLocalizations.of(context).login_error}${e.message}",
+      );
     }
   }
 }
