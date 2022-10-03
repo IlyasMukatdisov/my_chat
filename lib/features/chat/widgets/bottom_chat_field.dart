@@ -11,7 +11,7 @@ class BottomChatField extends StatefulWidget {
 }
 
 class _BottomChatFieldState extends State<BottomChatField> {
-  bool isShowSendButton = false;
+  bool isTextEmpty = true;
 
   @override
   Widget build(BuildContext context) {
@@ -21,69 +21,72 @@ class _BottomChatFieldState extends State<BottomChatField> {
         children: [
           Expanded(
             child: TextFormField(
+              maxLines: null,
+              keyboardType: TextInputType.multiline,
               onChanged: (value) {
                 if (value.isNotEmpty) {
                   setState(() {
-                    isShowSendButton = true;
+                    isTextEmpty = false;
                   });
                 } else {
                   setState(() {
-                    isShowSendButton = false;
+                    isTextEmpty = true;
                   });
                 }
               },
               decoration: InputDecoration(
                 filled: true,
                 fillColor: mobileChatBoxColor,
-                // prefixIcon: Padding(
-                //   padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                //   child: Row(
-                //     children: [
-                //       InkWell(
-                //         onTap: () {},
-                //         child: const Icon(
-                //           Icons.emoji_emotions,
-                //           color: Colors.white54,
-                //         ),
-                //       ),
-                //       const SizedBox(
-                //         width: 10,
-                //       ),
-                //       InkWell(
-                //         child: const Icon(
-                //           Icons.gif,
-                //           color: Colors.white54,
-                //         ),
-                //         onTap: () {},
-                //       )
-                //     ],
-                //   ),
-                // ),
-                // suffixIcon: Padding(
-                //   padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.end,
-                //     children: [
-                //       InkWell(
-                //         onTap: () {},
-                //         child: const Icon(
-                //           Icons.camera_alt,
-                //           color: Colors.white54,
-                //         ),
-                //       ),
-                //       const SizedBox(
-                //         width: 10,
-                //       ),
-                //       InkWell(
-                //         onTap: () {},
-                //         child: const Icon(
-                //           Icons.attach_file,
-                //           color: Colors.white54,
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
+                prefixIcon: isTextEmpty
+                    ? Container(
+                        width: 80,
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            InkWell(
+                              onTap: () {},
+                              child: const Icon(
+                                Icons.emoji_emotions,
+                                color: Colors.white54,
+                              ),
+                            ),
+                            InkWell(
+                              child: const Icon(
+                                Icons.gif,
+                                color: Colors.white54,
+                              ),
+                              onTap: () {},
+                            )
+                          ],
+                        ),
+                      )
+                    : null,
+                suffixIcon: isTextEmpty
+                    ? Container(
+                        width: 80,
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            InkWell(
+                              onTap: () {},
+                              child: const Icon(
+                                Icons.camera_alt,
+                                color: Colors.white54,
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {},
+                              child: const Icon(
+                                Icons.attach_file,
+                                color: Colors.white54,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : null,
                 hintText: 'Type a message!',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20.0),
@@ -102,15 +105,10 @@ class _BottomChatFieldState extends State<BottomChatField> {
           CircleAvatar(
             backgroundColor: tabColor,
             child: IconButton(
-              icon: isShowSendButton
-                  ? const Icon(
-                      Icons.send_rounded,
-                      color: Colors.white,
-                    )
-                  : const Icon(
-                      Icons.mic,
-                      color: Colors.white,
-                    ),
+              icon: Icon(
+                isTextEmpty ? Icons.send_rounded : Icons.mic,
+                color: Colors.white,
+              ),
               onPressed: () {},
             ),
           )
