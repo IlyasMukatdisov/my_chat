@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:my_chat/features/select_contact/screens/select_contact_screen.dart';
 import 'package:my_chat/generated/l10n.dart';
 import 'package:my_chat/utils/colors.dart';
 import 'package:my_chat/widgets/contacts_list.dart';
 
 class MobileLayoutScreen extends StatelessWidget {
+  static const routeName = '/mobile-layout-screen';
   const MobileLayoutScreen({Key? key}) : super(key: key);
 
   @override
@@ -56,7 +58,9 @@ class MobileLayoutScreen extends StatelessWidget {
         ),
         body: const ContactsList(),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pushNamed(SelectContactsScreen.routeName);
+          },
           backgroundColor: tabColor,
           child: const Icon(
             Icons.comment,

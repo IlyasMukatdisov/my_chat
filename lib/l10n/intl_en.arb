@@ -16,5 +16,7 @@
     "we_have_send_sms": "We have send you an SMS with code. Please enter it here",
     "cant_load_image": "We can't load image from your gallery. Please try again later",
     "name": "Name",
-    "enter_your_name": "Enter your name"
+    "enter_your_name": "Enter your name",
+    "select_contact": "Select contact",
+    "user_not_registered": "User not registered"
 }

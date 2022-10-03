@@ -103,6 +103,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           height: AppConstants.defaultPadding,
                         ),
                         TextFormField(
+                          enabled: _phoneCode.isNotEmpty,
                           keyboardType: TextInputType.number,
                           controller: _phoneController,
                           onChanged: (value) {},

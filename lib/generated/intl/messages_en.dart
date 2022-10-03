@@ -44,7 +44,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("This page doesn\'t exist"),
         "phone_number": MessageLookupByLibrary.simpleMessage("Phone number"),
         "pick_country": MessageLookupByLibrary.simpleMessage("Pick country"),
+        "select_contact":
+            MessageLookupByLibrary.simpleMessage("Select contact"),
         "status": MessageLookupByLibrary.simpleMessage("Status"),
+        "user_not_registered":
+            MessageLookupByLibrary.simpleMessage("User not registered"),
         "verify_your_number":
             MessageLookupByLibrary.simpleMessage("Verify your number"),
         "we_have_send_sms": MessageLookupByLibrary.simpleMessage(

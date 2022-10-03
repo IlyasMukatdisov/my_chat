@@ -45,7 +45,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Этой страницы не существует"),
         "phone_number": MessageLookupByLibrary.simpleMessage("Номер телефона"),
         "pick_country": MessageLookupByLibrary.simpleMessage("Выберите страну"),
+        "select_contact":
+            MessageLookupByLibrary.simpleMessage("Выберите контакт"),
         "status": MessageLookupByLibrary.simpleMessage("Статус"),
+        "user_not_registered": MessageLookupByLibrary.simpleMessage(
+            "пользователь не зарегистрирован"),
         "verify_your_number":
             MessageLookupByLibrary.simpleMessage("Подтвердите ваш номер"),
         "we_have_send_sms": MessageLookupByLibrary.simpleMessage(

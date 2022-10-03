@@ -229,6 +229,26 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Select contact`
+  String get select_contact {
+    return Intl.message(
+      'Select contact',
+      name: 'select_contact',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User not registered`
+  String get user_not_registered {
+    return Intl.message(
+      'User not registered',
+      name: 'user_not_registered',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

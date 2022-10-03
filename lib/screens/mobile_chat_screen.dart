@@ -4,7 +4,14 @@ import 'package:my_chat/info.dart';
 import 'package:my_chat/widgets/chat_list.dart';
 
 class MobileChatScreen extends StatelessWidget {
-  const MobileChatScreen({Key? key}) : super(key: key);
+  final String name;
+  final String uid;
+  static const routeName = '/mobile-chat-screen';
+  const MobileChatScreen({
+    Key? key,
+    required this.name,
+    required this.uid,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +19,7 @@ class MobileChatScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: appBarColor,
         title: Text(
-          info[0]['name'].toString(),
+          name,
         ),
         centerTitle: false,
         actions: [

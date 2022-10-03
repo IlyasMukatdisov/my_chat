@@ -4,10 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_chat/common/repository/common_firebase_storage_repository.dart';
 import 'package:my_chat/common/utils/utils.dart';
 import 'package:my_chat/features/auth/screens/otp_screen.dart';
-import 'package:my_chat/features/auth/screens/user_info_screen.dart';
 import 'package:my_chat/generated/l10n.dart';
+import 'package:my_chat/models/user_model.dart';
 import 'package:my_chat/utils/app_constants.dart';
 
 final authRepositoryProvider = Provider(
@@ -22,6 +23,19 @@ class AuthRepository {
   final FirebaseFirestore firestore;
 
   AuthRepository({required this.auth, required this.firestore});
+
+  Future<UserModel?> getCurrentUserData() async {
+    var userData = await firestore
+        .collection(AppConstants.usersCollection)
+        .doc(auth.currentUser?.uid)
+        .get();
+
+    UserModel? user;
+    if (userData.data() != null) {
+      user = UserModel.fromMap(userData.data()!);
+    }
+    return user;
+  }
 
   void signInWithPhone({
     required BuildContext context,
@@ -76,15 +90,41 @@ class AuthRepository {
       {required String name,
       required File? profilePic,
       required ProviderRef ref,
-      required BuildContext context}) async {
+      required BuildContext context,
+      required VoidCallback onSuccess}) async {
     try {
       final String uid = auth.currentUser!.uid;
       String photoUrl = AppConstants.defaultProfilePic;
-      if(profilePic != null){
-        
+      if (profilePic != null) {
+        photoUrl = await ref
+            .read(commonFirebaseStorageRepository)
+            .storeToFirebase(
+                ref: '${AppConstants.profilePicFolder}/$uid', file: profilePic);
       }
+      UserModel user = UserModel(
+          name: name,
+          uid: uid,
+          profilePic: photoUrl,
+          isOnline: true,
+          phoneNumber: auth.currentUser!.phoneNumber ?? '',
+          groupId: []);
+      await firestore
+          .collection(AppConstants.usersCollection)
+          .doc(uid)
+          .set(user.toMap());
+      onSuccess();
     } catch (e) {
       showSnackBar(context: context, text: e.toString());
     }
+  }
+
+  Stream<UserModel> userData(String userId) {
+    return firestore
+        .collection(AppConstants.usersCollection)
+        .doc(userId)
+        .snapshots()
+        .map(
+          (event) => UserModel.fromMap(event.data()!),
+        );
   }
 }
