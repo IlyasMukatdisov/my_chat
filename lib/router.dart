@@ -6,7 +6,7 @@ import 'package:my_chat/features/auth/screens/user_info_screen.dart';
 import 'package:my_chat/features/select_contact/screens/select_contact_screen.dart';
 
 import 'package:my_chat/generated/l10n.dart';
-import 'package:my_chat/screens/mobile_chat_screen.dart';
+import 'package:my_chat/features/chat/screens/mobile_chat_screen.dart';
 import 'package:my_chat/screens/mobile_layout_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {

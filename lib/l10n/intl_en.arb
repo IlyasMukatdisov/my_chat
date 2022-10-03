@@ -18,5 +18,7 @@
     "name": "Name",
     "enter_your_name": "Enter your name",
     "select_contact": "Select contact",
-    "user_not_registered": "User not registered"
+    "user_not_registered": "User not registered",
+    "online": "Online",
+    "offline": "Offline"
 }

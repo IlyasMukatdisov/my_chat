@@ -40,6 +40,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "My chat need to verify your phone number"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
+        "offline": MessageLookupByLibrary.simpleMessage("Offline"),
+        "online": MessageLookupByLibrary.simpleMessage("Online"),
         "page_does_not_exists":
             MessageLookupByLibrary.simpleMessage("This page doesn\'t exist"),
         "phone_number": MessageLookupByLibrary.simpleMessage("Phone number"),

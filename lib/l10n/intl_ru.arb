@@ -18,5 +18,7 @@
     "name": "Имя",
     "enter_your_name": "Введите ваше имя",
     "select_contact": "Выберите контакт",
-    "user_not_registered": "пользователь не зарегистрирован"
+    "user_not_registered": "пользователь не зарегистрирован",
+    "online": "В сети",
+    "offline": "Не в сети"
 }

@@ -41,6 +41,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "My chat необходимо проверить ваш номер телефона"),
         "name": MessageLookupByLibrary.simpleMessage("Имя"),
         "next": MessageLookupByLibrary.simpleMessage("Далее"),
+        "offline": MessageLookupByLibrary.simpleMessage("Не в сети"),
+        "online": MessageLookupByLibrary.simpleMessage("В сети"),
         "page_does_not_exists":
             MessageLookupByLibrary.simpleMessage("Этой страницы не существует"),
         "phone_number": MessageLookupByLibrary.simpleMessage("Номер телефона"),

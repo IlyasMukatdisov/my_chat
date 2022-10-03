@@ -7,7 +7,7 @@ import 'package:my_chat/common/widgets/loader_screen.dart';
 import 'package:my_chat/features/select_contact/controller/select_contact_controller.dart';
 import 'package:my_chat/generated/l10n.dart';
 import 'package:my_chat/models/user_model.dart';
-import 'package:my_chat/screens/mobile_chat_screen.dart';
+import 'package:my_chat/features/chat/screens/mobile_chat_screen.dart';
 
 class SelectContactsScreen extends ConsumerWidget {
   static const routeName = '/select-contact';
