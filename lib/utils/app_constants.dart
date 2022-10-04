@@ -4,4 +4,5 @@ class AppConstants {
       "https://www.iconsdb.com/icons/preview/white/user-xxl.png";
   static const profilePicFolder = 'profilePic';
   static const usersCollection = 'users';
+  static const chatsCollection = 'chats';
 }
