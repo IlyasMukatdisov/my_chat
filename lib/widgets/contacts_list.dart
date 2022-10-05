@@ -1,69 +1,96 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:my_chat/common/widgets/error_screen.dart';
+import 'package:my_chat/common/widgets/loader_screen.dart';
+import 'package:my_chat/features/chat/controller/chat_controller.dart';
+import 'package:my_chat/models/chat_contact.dart';
 import 'package:my_chat/utils/colors.dart';
 import 'package:my_chat/info.dart';
 import 'package:my_chat/features/chat/screens/mobile_chat_screen.dart';
 
-class ContactsList extends StatelessWidget {
+class ContactsList extends ConsumerWidget {
   const ContactsList({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.only(top: 10.0),
-      child: ListView.builder(
-        shrinkWrap: true,
-        itemCount: info.length,
-        itemBuilder: (context, index) {
-          String locale = Localizations.localeOf(context).languageCode;
-          return Column(
-            children: [
-              InkWell(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          MobileChatScreen(name: 'Ilyas', uid: '123'),
-                    ),
-                  );
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: ListTile(
-                    title: Text(
-                      info[index]['name'].toString(),
-                      style: const TextStyle(
-                          fontSize: 18, overflow: TextOverflow.ellipsis),
-                    ),
-                    subtitle: Padding(
-                      padding: const EdgeInsets.only(top: 6.0),
-                      child: Text(
-                        info[index]['message'].toString(),
-                        style: const TextStyle(
-                            fontSize: 15, overflow: TextOverflow.ellipsis),
-                      ),
-                    ),
-                    leading: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                        info[index]['profilePic'].toString(),
-                      ),
-                      radius: 30,
-                    ),
-                    trailing: Text(
-                      info[index]['time'].toString(),
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 13,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const Divider(color: dividerColor, indent: 85),
-            ],
-          );
-        },
-      ),
+      child: StreamBuilder<List<ChatContact>>(
+          stream: ref.watch(chatControllerProvider).chatContacts(),
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.active:
+              case ConnectionState.done:
+                {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) {
+                        String locale =
+                            Localizations.localeOf(context).languageCode;
+                        var chatContactData = snapshot.data![index];
+
+                        return Column(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => MobileChatScreen(
+                                        name: chatContactData.name,
+                                        uid: chatContactData.contactId),
+                                  ),
+                                );
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 8.0),
+                                child: ListTile(
+                                  title: Text(
+                                    chatContactData.name,
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        overflow: TextOverflow.ellipsis),
+                                  ),
+                                  subtitle: Padding(
+                                    padding: const EdgeInsets.only(top: 6.0),
+                                    child: Text(
+                                      chatContactData.lastMessage,
+                                      style: const TextStyle(
+                                          fontSize: 15,
+                                          overflow: TextOverflow.ellipsis),
+                                    ),
+                                  ),
+                                  leading: CircleAvatar(
+                                    backgroundImage: NetworkImage(
+                                      chatContactData.profilePic,
+                                    ),
+                                    radius: 30,
+                                  ),
+                                  trailing: Text(
+                                    DateFormat.Hm()
+                                        .format(chatContactData.timeSend),
+                                    style: const TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 13,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const Divider(color: dividerColor, indent: 85),
+                          ],
+                        );
+                      },
+                    );
+                  } else
+                    return LoaderScreen();
+                }
+              default:
+                return const LoaderScreen();
+            }
+          }),
     );
   }
 }
