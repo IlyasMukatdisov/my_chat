@@ -2,11 +2,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_chat/common/enums/message_enum.dart';
 import 'package:my_chat/common/utils/utils.dart';
 import 'package:my_chat/models/chat_contact.dart';
+import 'package:my_chat/models/message.dart';
 import 'package:my_chat/models/user_model.dart';
 import 'package:my_chat/utils/app_constants.dart';
+import 'package:uuid/uuid.dart';
+
+final chatRepositoryProvider = Provider(
+  (ref) => ChatRepository(
+    firestore: FirebaseFirestore.instance,
+    auth: FirebaseAuth.instance,
+  ),
+);
 
 class ChatRepository {
   final FirebaseFirestore firestore;
@@ -23,6 +33,7 @@ class ChatRepository {
     required UserModel senderUser,
   }) async {
     try {
+      var messageId = Uuid().v1();
       var timeSend = DateTime.now();
       UserModel receiverUserData;
       var userDataMap = await firestore
@@ -37,7 +48,15 @@ class ChatRepository {
           text: text,
           timeSent: timeSend);
 
-      _saveMessageToMessageSubCollection();
+      _saveMessageToMessageSubCollection(
+          senderUserId: senderUser.uid,
+          receiverUserId: receiverUserId,
+          text: text,
+          timeSent: timeSend,
+          messageType: MessageEnum.text,
+          messageId: messageId,
+          receiverUserName: receiverUserData.name,
+          senderUserName: senderUser.name);
     } catch (e) {
       showSnackBar(context: context, text: e.toString());
     }
@@ -83,12 +102,40 @@ class ChatRepository {
   }
 
   void _saveMessageToMessageSubCollection({
+    required String senderUserId,
     required String receiverUserId,
     required String text,
     required DateTime timeSent,
     required String messageId,
-    required String userName,
+    required String senderUserName,
     required String receiverUserName,
-    required MessageEnum messageEnum,
-  }) {}
+    required MessageEnum messageType,
+  }) async {
+    final message = Message(
+        senderId: senderUserId,
+        receiverId: receiverUserId,
+        text: text,
+        type: MessageEnum.text,
+        timeSent: timeSent,
+        messageId: messageId,
+        isSeen: false);
+
+    await firestore
+        .collection(AppConstants.usersCollection)
+        .doc(senderUserId)
+        .collection(AppConstants.chatsCollection)
+        .doc(receiverUserId)
+        .collection(AppConstants.messagesCollection)
+        .doc(messageId)
+        .set(message.toMap());
+
+    await firestore
+        .collection(AppConstants.usersCollection)
+        .doc(receiverUserId)
+        .collection(AppConstants.chatsCollection)
+        .doc(senderUserId)
+        .collection(AppConstants.messagesCollection)
+        .doc(messageId)
+        .set(message.toMap());
+  }
 }
