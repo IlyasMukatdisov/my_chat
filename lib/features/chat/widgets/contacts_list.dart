@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:my_chat/common/widgets/error_screen.dart';
 import 'package:my_chat/common/widgets/loader_screen.dart';
 import 'package:my_chat/features/chat/controller/chat_controller.dart';
 import 'package:my_chat/models/chat_contact.dart';
 import 'package:my_chat/utils/colors.dart';
-import 'package:my_chat/info.dart';
 import 'package:my_chat/features/chat/screens/mobile_chat_screen.dart';
 
 class ContactsList extends ConsumerWidget {
@@ -36,13 +34,12 @@ class ContactsList extends ConsumerWidget {
                           children: [
                             InkWell(
                               onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => MobileChatScreen(
-                                        name: chatContactData.name,
-                                        uid: chatContactData.contactId),
-                                  ),
-                                );
+                                Navigator.of(context).pushNamed(
+                                    MobileChatScreen.routeName,
+                                    arguments: {
+                                      'name': chatContactData.name,
+                                      'uid': chatContactData.contactId
+                                    });
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(bottom: 8.0),

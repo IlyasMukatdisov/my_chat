@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_chat/features/select_contact/screens/select_contact_screen.dart';
 import 'package:my_chat/generated/l10n.dart';
 import 'package:my_chat/utils/colors.dart';
-import 'package:my_chat/widgets/contacts_list.dart';
+import 'package:my_chat/features/chat/widgets/contacts_list.dart';
 
 class MobileLayoutScreen extends StatelessWidget {
   static const routeName = '/mobile-layout-screen';

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:my_chat/utils/colors.dart';
 import 'package:my_chat/info.dart';
-import 'package:my_chat/widgets/chat_list.dart';
+import 'package:my_chat/features/chat/widgets/chat_list.dart';
 import 'package:my_chat/widgets/web_chat_appbar.dart';
-import 'package:my_chat/widgets/contacts_list.dart';
+import 'package:my_chat/features/chat/widgets/contacts_list.dart';
 import 'package:my_chat/widgets/my_message_card.dart';
 import 'package:my_chat/widgets/sender_message_card.dart';
 import 'package:my_chat/widgets/web_profile_bar.dart';
@@ -47,7 +47,7 @@ class WebLayoutScreen extends StatelessWidget {
                 const ChatAppBar(),
                 const SizedBox(height: 20),
                 const Expanded(
-                  child: ChatList(),
+                  child: ChatList(receiverUserId: ''),
                 ),
                 Container(
                   height: MediaQuery.of(context).size.height * 0.07,

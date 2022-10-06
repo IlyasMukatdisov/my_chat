@@ -5,7 +5,7 @@ import 'package:my_chat/features/chat/widgets/bottom_chat_field.dart';
 import 'package:my_chat/generated/l10n.dart';
 import 'package:my_chat/models/user_model.dart';
 import 'package:my_chat/utils/colors.dart';
-import 'package:my_chat/widgets/chat_list.dart';
+import 'package:my_chat/features/chat/widgets/chat_list.dart';
 
 class MobileChatScreen extends ConsumerWidget {
   final String name;
@@ -66,8 +66,8 @@ class MobileChatScreen extends ConsumerWidget {
       ),
       body: Column(
         children: [
-          const Expanded(
-            child: ChatList(),
+          Expanded(
+            child: ChatList(receiverUserId: uid),
           ),
           BottomChatField(receiverUserId: uid),
         ],
