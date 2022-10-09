@@ -14,11 +14,13 @@
     "verify_your_number": "Verify your number",
     "next": "Next",
     "we_have_send_sms": "We have send you an SMS with code. Please enter it here",
-    "cant_load_image": "We can't load image from your gallery. Please try again later",
     "name": "Name",
     "enter_your_name": "Enter your name",
     "select_contact": "Select contact",
     "user_not_registered": "User not registered",
     "online": "Online",
-    "offline": "Offline"
+    "offline": "Offline",
+    "cant_send_file": "Can't send file. Please try again later",
+    "no_messages_yet": "No messages yet",
+    "mic_permission_not_granted": "Microphone permission not granted"
 }

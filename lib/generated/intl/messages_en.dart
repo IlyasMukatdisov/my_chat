@@ -25,8 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "agree_and_continue":
             MessageLookupByLibrary.simpleMessage("AGREE AND CONTINUE"),
         "calls": MessageLookupByLibrary.simpleMessage("Calls"),
-        "cant_load_image": MessageLookupByLibrary.simpleMessage(
-            "We can\'t load image from your gallery. Please try again later"),
+        "cant_send_file": MessageLookupByLibrary.simpleMessage(
+            "Can\'t send file. Please try again later"),
         "chats": MessageLookupByLibrary.simpleMessage("Chats"),
         "enter_phone_number":
             MessageLookupByLibrary.simpleMessage("Enter phone number"),
@@ -36,10 +36,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "Read our Privacy Policy. Tap \"Agree and continue\" to accept the Terms of Service."),
         "landing_title": MessageLookupByLibrary.simpleMessage("Welcome to"),
         "login_error": MessageLookupByLibrary.simpleMessage("Login error: "),
+        "mic_permission_not_granted": MessageLookupByLibrary.simpleMessage(
+            "Microphone permission not granted"),
         "my_chat_need_to_verify": MessageLookupByLibrary.simpleMessage(
             "My chat need to verify your phone number"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
+        "no_messages_yet":
+            MessageLookupByLibrary.simpleMessage("No messages yet"),
         "offline": MessageLookupByLibrary.simpleMessage("Offline"),
         "online": MessageLookupByLibrary.simpleMessage("Online"),
         "page_does_not_exists":

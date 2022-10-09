@@ -25,8 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "agree_and_continue": MessageLookupByLibrary.simpleMessage(
             "Согласен с правилами и продолжаю"),
         "calls": MessageLookupByLibrary.simpleMessage("Звонки"),
-        "cant_load_image": MessageLookupByLibrary.simpleMessage(
-            "Мы не можем загрузить изображение из вашей галереи. Пожалуйста, попробуйте позже"),
+        "cant_send_file": MessageLookupByLibrary.simpleMessage(
+            "Ошибка отправки файла. Пожалуйста попробуйте позже"),
         "chats": MessageLookupByLibrary.simpleMessage("Чаты"),
         "enter_phone_number":
             MessageLookupByLibrary.simpleMessage("Введите номер телефона"),
@@ -37,10 +37,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "landing_title":
             MessageLookupByLibrary.simpleMessage("Добро Пожаловать в"),
         "login_error": MessageLookupByLibrary.simpleMessage("Ошибка входа: "),
+        "mic_permission_not_granted": MessageLookupByLibrary.simpleMessage(
+            "Разрешение на использование микрофона не было записано"),
         "my_chat_need_to_verify": MessageLookupByLibrary.simpleMessage(
             "My chat необходимо проверить ваш номер телефона"),
         "name": MessageLookupByLibrary.simpleMessage("Имя"),
         "next": MessageLookupByLibrary.simpleMessage("Далее"),
+        "no_messages_yet":
+            MessageLookupByLibrary.simpleMessage("Пока нет сообщений"),
         "offline": MessageLookupByLibrary.simpleMessage("Не в сети"),
         "online": MessageLookupByLibrary.simpleMessage("В сети"),
         "page_does_not_exists":

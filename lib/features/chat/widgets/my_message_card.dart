@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:my_chat/common/enums/message_enum.dart';
+import 'package:my_chat/features/chat/widgets/message_content.dart';
 import 'package:my_chat/utils/colors.dart';
 
 class MyMessageCard extends StatelessWidget {
   final String message;
+  final MessageEnum type;
   final String date;
 
-  const MyMessageCard({Key? key, required this.message, required this.date})
-      : super(key: key);
+  const MyMessageCard({
+    Key? key,
+    required this.message,
+    required this.date,
+    required this.type,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +21,7 @@ class MyMessageCard extends StatelessWidget {
       alignment: Alignment.centerRight,
       child: ConstrainedBox(
         constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width - 45,
-        ),
+            maxWidth: MediaQuery.of(context).size.width - 45, minWidth: 120),
         child: Card(
           elevation: 1,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -24,17 +30,22 @@ class MyMessageCard extends StatelessWidget {
           child: Stack(
             children: [
               Padding(
-                padding: const EdgeInsets.only(
-                  left: 10,
-                  right: 30,
-                  top: 5,
-                  bottom: 20,
-                ),
-                child: Text(
-                  message,
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
+                padding: type == MessageEnum.text
+                    ? const EdgeInsets.only(
+                        left: 10,
+                        right: 30,
+                        top: 5,
+                        bottom: 20,
+                      )
+                    : const EdgeInsets.only(
+                        left: 5,
+                        right: 5,
+                        top: 5,
+                        bottom: 30,
+                      ),
+                child: MessageContent(
+                  message: message,
+                  type: type,
                 ),
               ),
               Positioned(

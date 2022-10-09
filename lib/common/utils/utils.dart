@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:my_chat/utils/api_keys.dart';
 import 'package:my_chat/generated/l10n.dart';
 import 'package:my_chat/utils/app_constants.dart';
 
@@ -30,8 +31,25 @@ Future<File?> pickImageFromGallery(BuildContext context) async {
   } catch (e) {
     showSnackBar(
       context: context,
-      text: AppLocalizations.of(context).cant_load_image,
+      text: AppLocalizations.of(context).cant_send_file,
     );
   }
   return image;
+}
+
+Future<File?> pickVideoFromGallery(BuildContext context) async {
+  File? video;
+  try {
+    final pickedVideo =
+        await ImagePicker().pickVideo(source: ImageSource.gallery);
+    if (pickedVideo != null) {
+      video = File(pickedVideo.path);
+    }
+  } catch (e) {
+    showSnackBar(
+      context: context,
+      text: AppLocalizations.of(context).cant_send_file,
+    );
+  }
+  return video;
 }

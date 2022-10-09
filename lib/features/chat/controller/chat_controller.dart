@@ -1,6 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_chat/common/enums/message_enum.dart';
 import 'package:my_chat/features/auth/controller/auth_controller.dart';
 
 import 'package:my_chat/features/chat/repository/chat_repository.dart';
@@ -33,13 +36,30 @@ class ChatController {
     required BuildContext context,
     required String text,
     required String receiverUserId,
-    required String senderUserId,
   }) async {
     ref
         .read(userDataAuthProvider)
         .whenData((value) => chatRepository.sendTextMessage(
               context: context,
               text: text,
+              receiverUserId: receiverUserId,
+              senderUser: value!,
+            ));
+  }
+
+  void sendFileMessage({
+    required BuildContext context,
+    required File file,
+    required String receiverUserId,
+    required MessageEnum fileType,
+  }) async {
+    ref
+        .read(userDataAuthProvider)
+        .whenData((value) => chatRepository.sendFileMessage(
+              context: context,
+              file: file,
+              fileType: fileType,
+              ref: ref,
               receiverUserId: receiverUserId,
               senderUser: value!,
             ));

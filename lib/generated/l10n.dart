@@ -200,16 +200,6 @@ class AppLocalizations {
     );
   }
 
-  /// `We can't load image from your gallery. Please try again later`
-  String get cant_load_image {
-    return Intl.message(
-      'We can\'t load image from your gallery. Please try again later',
-      name: 'cant_load_image',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Name`
   String get name {
     return Intl.message(
@@ -265,6 +255,36 @@ class AppLocalizations {
     return Intl.message(
       'Offline',
       name: 'offline',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Can't send file. Please try again later`
+  String get cant_send_file {
+    return Intl.message(
+      'Can\'t send file. Please try again later',
+      name: 'cant_send_file',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No messages yet`
+  String get no_messages_yet {
+    return Intl.message(
+      'No messages yet',
+      name: 'no_messages_yet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Microphone permission not granted`
+  String get mic_permission_not_granted {
+    return Intl.message(
+      'Microphone permission not granted',
+      name: 'mic_permission_not_granted',
       desc: '',
       args: [],
     );

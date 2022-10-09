@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:my_chat/common/widgets/loader_screen.dart';
 import 'package:my_chat/features/chat/controller/chat_controller.dart';
+import 'package:my_chat/generated/l10n.dart';
 import 'package:my_chat/models/chat_contact.dart';
 import 'package:my_chat/utils/colors.dart';
 import 'package:my_chat/features/chat/screens/mobile_chat_screen.dart';
@@ -21,7 +22,7 @@ class ContactsList extends ConsumerWidget {
               case ConnectionState.active:
               case ConnectionState.done:
                 {
-                  if (snapshot.hasData) {
+                  if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                     return ListView.builder(
                       shrinkWrap: true,
                       itemCount: snapshot.data!.length,
@@ -67,7 +68,7 @@ class ContactsList extends ConsumerWidget {
                                   ),
                                   trailing: Text(
                                     DateFormat.Hm()
-                                        .format(chatContactData.timeSend),
+                                        .format(chatContactData.timeSent),
                                     style: const TextStyle(
                                       color: Colors.grey,
                                       fontSize: 13,
@@ -81,8 +82,11 @@ class ContactsList extends ConsumerWidget {
                         );
                       },
                     );
-                  } else
-                    return LoaderScreen();
+                  } else {
+                    return Center(
+                      child: Text(AppLocalizations.of(context).no_messages_yet),
+                    );
+                  }
                 }
               default:
                 return const LoaderScreen();
