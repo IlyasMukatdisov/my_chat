@@ -9,12 +9,14 @@ import 'package:my_chat/features/chat/widgets/video_content.dart';
 class MessageContent extends StatelessWidget {
   final String message;
   final MessageEnum type;
+  final bool isReplyPreview;
 
-  const MessageContent({
-    Key? key,
-    required this.message,
-    required this.type,
-  }) : super(key: key);
+  const MessageContent(
+      {Key? key,
+      required this.message,
+      required this.type,
+      this.isReplyPreview = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -63,11 +65,10 @@ class MessageContent extends StatelessWidget {
       case MessageEnum.image:
         return CachedNetworkImage(
           imageUrl: message,
+          height: isReplyPreview ? 40 : null,
         );
       case MessageEnum.video:
-        return VideoContent(
-          source: message,
-        );
+        return VideoContent(source: message, isReplyPreview: isReplyPreview);
 
       default:
         return Container();

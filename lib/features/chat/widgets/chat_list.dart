@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:my_chat/common/enums/message_enum.dart';
 import 'package:my_chat/common/provider/message_reply_provider.dart';
 import 'package:my_chat/common/widgets/loader_screen.dart';
+import 'package:my_chat/features/auth/controller/auth_controller.dart';
 import 'package:my_chat/features/chat/controller/chat_controller.dart';
 import 'package:my_chat/features/chat/widgets/my_message_card.dart';
 import 'package:my_chat/features/chat/widgets/sender_message_card.dart';
@@ -36,16 +37,20 @@ class _ChatListState extends ConsumerState<ChatList> {
     super.dispose();
   }
 
-  void onMessageLeftSwipe(
+  void Reply(
       {required String message,
-      required String messageOwnerName,
       required bool isMe,
-      required MessageEnum messageType}) {
+      required MessageEnum messageType,
+      required String replyingMessageOwnerId}) async {
+    final replyingMessageOwner = await ref
+        .read(authControllerProvider)
+        .getUserData(replyingMessageOwnerId);
+
     ref.read(messageReplyProvider.state).update((state) => MessageReply(
         message: message,
-        messageOwnerName: messageOwnerName,
         isMe: isMe,
-        messageType: messageType));
+        messageType: messageType,
+        replyMessageOwner: replyingMessageOwner?.name ?? 'user'));
   }
 
   @override
@@ -90,7 +95,7 @@ class _ChatListState extends ConsumerState<ChatList> {
                         }
                       }
 
-                      final message = snapshot.data![index];
+                      final Message message = snapshot.data![index];
                       final date = DateFormat.Hm().format(message.timeSent);
                       if (message.senderId != widget.receiverUserId) {
                         return Padding(
@@ -105,14 +110,13 @@ class _ChatListState extends ConsumerState<ChatList> {
                                 type: message.type,
                                 repliedText: message.repliedMessage,
                                 repliedType: message.repliedType,
-                                userName: message.repliedToUser,
+                                repliedToUser: message.repliedToUser,
                                 onLeftSwipe: () {
-                                  onMessageLeftSwipe(
-                                    message: message.text,
-                                    messageOwnerName: message.repliedToUser,
-                                    isMe: true,
-                                    messageType: message.type,
-                                  );
+                                  Reply(
+                                      message: message.text,
+                                      isMe: true,
+                                      messageType: message.type,
+                                      replyingMessageOwnerId: message.senderId);
                                 },
                               ),
                             ],
@@ -132,10 +136,10 @@ class _ChatListState extends ConsumerState<ChatList> {
                                 repliedText: message.repliedMessage,
                                 repliedType: message.repliedType,
                                 userName: message.repliedToUser,
-                                onLeftSwipe: () {
-                                  onMessageLeftSwipe(
+                                onRightSwipe: () {
+                                  Reply(
+                                    replyingMessageOwnerId: message.senderId,
                                     message: message.text,
-                                    messageOwnerName: message.repliedToUser,
                                     isMe: false,
                                     messageType: message.type,
                                   );

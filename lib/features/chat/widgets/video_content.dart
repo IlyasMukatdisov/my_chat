@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 
 class VideoContent extends StatefulWidget {
   final String source;
+  final bool isReplyPreview;
   const VideoContent({
     Key? key,
     required this.source,
+    this.isReplyPreview = false,
   }) : super(key: key);
 
   @override
@@ -36,31 +38,36 @@ class _VideoContentState extends State<VideoContent> {
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 16 / 9,
-      child: Stack(
-        children: [
-          CachedVideoPlayer(_controller),
-          Align(
-              alignment: Alignment.center,
-              child: IconButton(
-                icon: Icon(
-                  isPlay ? Icons.pause_circle : Icons.play_circle,
-                  color: Colors.white54.withOpacity(0.5),
-                  size: 50,
-                ),
-                onPressed: () {
-                  if (isPlay) {
-                    _controller.pause();
-                  } else {
-                    _controller.play();
-                  }
-                  setState(() {
-                    isPlay = !isPlay;
-                  });
-                },
-              ))
-        ],
+    return SizedBox(
+      height: widget.isReplyPreview ? 40 : null,
+      child: AspectRatio(
+        aspectRatio: 16 / 9,
+        child: Stack(
+          children: [
+            CachedVideoPlayer(_controller),
+            widget.isReplyPreview
+                ? const SizedBox()
+                : Align(
+                    alignment: Alignment.center,
+                    child: IconButton(
+                      icon: Icon(
+                        isPlay ? Icons.pause_circle : Icons.play_circle,
+                        color: Colors.white54.withOpacity(0.5),
+                        size: 50,
+                      ),
+                      onPressed: () {
+                        if (isPlay) {
+                          _controller.pause();
+                        } else {
+                          _controller.play();
+                        }
+                        setState(() {
+                          isPlay = !isPlay;
+                        });
+                      },
+                    ))
+          ],
+        ),
       ),
     );
   }

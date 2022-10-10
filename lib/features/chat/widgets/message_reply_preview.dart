@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_chat/common/provider/message_reply_provider.dart';
+import 'package:my_chat/features/chat/widgets/message_content.dart';
 import 'package:my_chat/generated/l10n.dart';
 import 'package:my_chat/utils/app_constants.dart';
 
@@ -29,12 +30,13 @@ class MessageReplyPreview extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      messageReply!.isMe
-                          ? AppLocalizations.of(context).me
-                          : messageReply.messageOwnerName,
+                      messageReply!.replyMessageOwner,
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    Text(messageReply.message),
+                    MessageContent(
+                        isReplyPreview: true,
+                        message: messageReply.message,
+                        type: messageReply.messageType),
                   ],
                 ),
               ),

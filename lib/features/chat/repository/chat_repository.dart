@@ -102,7 +102,7 @@ class ChatRepository {
           messageId: messageId,
           receiverUserName: receiverUserData.name,
           senderUserName: senderUser.name,
-          repliedMessage: messageReply);
+          messageReply: messageReply);
     } catch (e) {
       showSnackBar(context: context, text: e.toString());
     }
@@ -156,7 +156,7 @@ class ChatRepository {
     required String senderUserName,
     required String receiverUserName,
     required MessageEnum messageType,
-    required MessageReply? repliedMessage,
+    required MessageReply? messageReply,
   }) async {
     final message = Message(
         senderId: senderUserId,
@@ -166,12 +166,16 @@ class ChatRepository {
         timeSent: timeSent,
         messageId: messageId,
         isSeen: false,
-        repliedMessage: repliedMessage == null ? '' : repliedMessage.message,
+        repliedMessage: messageReply == null ? '' : messageReply.message,
         repliedToUser:
-            repliedMessage == null ? '' : repliedMessage.messageOwnerName,
-        repliedType: repliedMessage == null
+            messageReply == null
+          ? ''
+          : messageReply.isMe
+              ? senderUserName
+              : receiverUserName,
+        repliedType: messageReply == null
             ? MessageEnum.text
-            : repliedMessage.messageType);
+            : messageReply.messageType);
 
     await firestore
         .collection(AppConstants.usersCollection)
@@ -253,7 +257,7 @@ class ChatRepository {
         senderUserName: senderUser.name,
         receiverUserName: receiverUserData.name,
         messageType: fileType,
-        repliedMessage: messageReply
+        messageReply: messageReply
       );
     } catch (e) {
       showSnackBar(

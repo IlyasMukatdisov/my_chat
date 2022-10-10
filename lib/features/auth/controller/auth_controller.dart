@@ -62,6 +62,10 @@ class AuthController {
     return await authRepository.getCurrentUserData();
   }
 
+  Future<UserModel?> getUserData(String uid) async {
+    return await authRepository.getUserData(uid);
+  }
+
   Stream<UserModel> userData(String userId) {
     return authRepository.userData(userId);
   }

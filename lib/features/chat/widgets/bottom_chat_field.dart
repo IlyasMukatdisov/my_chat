@@ -37,7 +37,6 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
   void initState() {
     _messageController = TextEditingController();
     _flutterSoundRecorder = FlutterSoundRecorder();
-    openAudio();
     super.initState();
   }
 
@@ -66,7 +65,11 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
             text: _messageController.text.trim(),
             receiverUserId: widget.receiverUserId,
           );
-      _messageController.clear();
+
+      setState(() {
+        _messageController.clear();
+        isTextEmpty = true;
+      });
     }
   }
 
@@ -96,21 +99,22 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
   }
 
   void sendAudioMessage() async {
-    var tempDir = await getTemporaryDirectory();
-    var path = '${tempDir.path}/flutter_sound.aac';
     if (!isRecorderInit) {
-      return;
-    }
-    if (isRecording) {
-      await _flutterSoundRecorder.stopRecorder();
-      sendFileMessage(File(path), MessageEnum.audio);
+      openAudio();
     } else {
-      await _flutterSoundRecorder.startRecorder(toFile: path);
-    }
+      var tempDir = await getTemporaryDirectory();
+      var path = '${tempDir.path}/flutter_sound.aac';
+      if (isRecording) {
+        await _flutterSoundRecorder.stopRecorder();
+        sendFileMessage(File(path), MessageEnum.audio);
+      } else {
+        await _flutterSoundRecorder.startRecorder(toFile: path);
+      }
 
-    setState(() {
-      isRecording = !isRecording;
-    });
+      setState(() {
+        isRecording = !isRecording;
+      });
+    }
   }
 
   @override
@@ -192,8 +196,9 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
                   onTap: () {
                     if (!isTextEmpty) {
                       sendTextMessage();
-                    } else
+                    } else {
                       sendAudioMessage();
+                    }
                   },
                   child: Icon(
                     isTextEmpty

@@ -12,9 +12,8 @@ class MyMessageCard extends StatelessWidget {
   final String date;
   final VoidCallback onLeftSwipe;
   final String repliedText;
-  final String userName;
+  final String repliedToUser;
   final MessageEnum repliedType;
-  
 
   const MyMessageCard({
     Key? key,
@@ -23,12 +22,14 @@ class MyMessageCard extends StatelessWidget {
     required this.date,
     required this.onLeftSwipe,
     required this.repliedText,
-    required this.userName,
+    required this.repliedToUser,
     required this.repliedType,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final bool isReplying = repliedText.isNotEmpty;
+
     return SwipeTo(
       onLeftSwipe: onLeftSwipe,
       child: Align(
@@ -38,7 +39,8 @@ class MyMessageCard extends StatelessWidget {
               maxWidth: MediaQuery.of(context).size.width - 45, minWidth: 120),
           child: Card(
             elevation: 1,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             color: tabColor,
             margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
             child: Stack(
@@ -57,13 +59,46 @@ class MyMessageCard extends StatelessWidget {
                           top: 5,
                           bottom: 30,
                         ),
-                  child: MessageContent(
-                    message: message,
-                    type: type,
+                  child: Column(
+                    children: [
+                      isReplying
+                          ? Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: const BoxDecoration(
+                                border: Border(
+                                    left: BorderSide(
+                                        color: backgroundColor, width: 3)),
+                              ),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    repliedToUser,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  MessageContent(
+                                    message: repliedText,
+                                    type: repliedType,
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  )
+                                ],
+                              ),
+                            )
+                          : const SizedBox(),
+                      MessageContent(
+                        message: message,
+                        type: type,
+                      ),
+                    ],
                   ),
                 ),
                 Positioned(
-                  bottom: 4,
+                  bottom: 2,
                   right: 10,
                   child: Row(
                     children: [

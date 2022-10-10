@@ -38,7 +38,7 @@ class ChatController {
     required String text,
     required String receiverUserId,
   }) async {
-13
+    final messageReply = ref.read(messageReplyProvider);
 
     ref.read(userDataAuthProvider).whenData((value) =>
         chatRepository.sendTextMessage(

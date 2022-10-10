@@ -5,15 +5,15 @@ import 'package:my_chat/common/enums/message_enum.dart';
 
 class MessageReply {
   final String message;
-  final String messageOwnerName;
   final bool isMe;
   final MessageEnum messageType;
+  final String replyMessageOwner;
 
   MessageReply({
     required this.message,
-    required this.messageOwnerName,
     required this.isMe,
     required this.messageType,
+    required this.replyMessageOwner,
   });
 }
 
