@@ -22,5 +22,6 @@
     "offline": "Offline",
     "cant_send_file": "Can't send file. Please try again later",
     "no_messages_yet": "No messages yet",
-    "mic_permission_not_granted": "Microphone permission not granted"
+    "mic_permission_not_granted": "Microphone permission not granted",
+    "me": "Me"
 }

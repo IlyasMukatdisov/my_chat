@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:my_chat/common/enums/message_enum.dart';
+import 'package:my_chat/common/provider/message_reply_provider.dart';
 import 'package:my_chat/common/widgets/loader_screen.dart';
 import 'package:my_chat/features/chat/controller/chat_controller.dart';
 import 'package:my_chat/features/chat/widgets/my_message_card.dart';
@@ -32,6 +34,18 @@ class _ChatListState extends ConsumerState<ChatList> {
   void dispose() {
     _scrollController.dispose();
     super.dispose();
+  }
+
+  void onMessageLeftSwipe(
+      {required String message,
+      required String messageOwnerName,
+      required bool isMe,
+      required MessageEnum messageType}) {
+    ref.read(messageReplyProvider.state).update((state) => MessageReply(
+        message: message,
+        messageOwnerName: messageOwnerName,
+        isMe: isMe,
+        messageType: messageType));
   }
 
   @override
@@ -89,6 +103,17 @@ class _ChatListState extends ConsumerState<ChatList> {
                                 message: message.text,
                                 date: date,
                                 type: message.type,
+                                repliedText: message.repliedMessage,
+                                repliedType: message.repliedType,
+                                userName: message.repliedToUser,
+                                onLeftSwipe: () {
+                                  onMessageLeftSwipe(
+                                    message: message.text,
+                                    messageOwnerName: message.repliedToUser,
+                                    isMe: true,
+                                    messageType: message.type,
+                                  );
+                                },
                               ),
                             ],
                           ),
@@ -104,6 +129,17 @@ class _ChatListState extends ConsumerState<ChatList> {
                                 message: message.text,
                                 date: date,
                                 type: message.type,
+                                repliedText: message.repliedMessage,
+                                repliedType: message.repliedType,
+                                userName: message.repliedToUser,
+                                onLeftSwipe: () {
+                                  onMessageLeftSwipe(
+                                    message: message.text,
+                                    messageOwnerName: message.repliedToUser,
+                                    isMe: false,
+                                    messageType: message.type,
+                                  );
+                                },
                               ),
                             ],
                           ),

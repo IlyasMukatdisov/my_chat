@@ -37,6 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "landing_title":
             MessageLookupByLibrary.simpleMessage("Добро Пожаловать в"),
         "login_error": MessageLookupByLibrary.simpleMessage("Ошибка входа: "),
+        "me": MessageLookupByLibrary.simpleMessage("Я"),
         "mic_permission_not_granted": MessageLookupByLibrary.simpleMessage(
             "Разрешение на использование микрофона не было записано"),
         "my_chat_need_to_verify": MessageLookupByLibrary.simpleMessage(

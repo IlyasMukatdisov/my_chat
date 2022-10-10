@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_chat/common/enums/message_enum.dart';
+import 'package:my_chat/common/provider/message_reply_provider.dart';
 import 'package:my_chat/features/auth/controller/auth_controller.dart';
 
 import 'package:my_chat/features/chat/repository/chat_repository.dart';
@@ -37,14 +38,15 @@ class ChatController {
     required String text,
     required String receiverUserId,
   }) async {
-    ref
-        .read(userDataAuthProvider)
-        .whenData((value) => chatRepository.sendTextMessage(
-              context: context,
-              text: text,
-              receiverUserId: receiverUserId,
-              senderUser: value!,
-            ));
+13
+
+    ref.read(userDataAuthProvider).whenData((value) =>
+        chatRepository.sendTextMessage(
+            context: context,
+            text: text,
+            receiverUserId: receiverUserId,
+            senderUser: value!,
+            messageReply: messageReply));
   }
 
   void sendFileMessage({
@@ -53,6 +55,7 @@ class ChatController {
     required String receiverUserId,
     required MessageEnum fileType,
   }) async {
+    final messageReply = ref.read(messageReplyProvider);
     ref
         .read(userDataAuthProvider)
         .whenData((value) => chatRepository.sendFileMessage(
@@ -62,6 +65,7 @@ class ChatController {
               ref: ref,
               receiverUserId: receiverUserId,
               senderUser: value!,
+              messageReply: messageReply,
             ));
   }
 }

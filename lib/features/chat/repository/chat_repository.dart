@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_chat/common/enums/message_enum.dart';
+import 'package:my_chat/common/provider/message_reply_provider.dart';
 import 'package:my_chat/common/repository/common_firebase_storage_repository.dart';
 import 'package:my_chat/common/utils/utils.dart';
 import 'package:my_chat/generated/l10n.dart';
@@ -74,6 +75,7 @@ class ChatRepository {
     required String text,
     required String receiverUserId,
     required UserModel senderUser,
+    required MessageReply? messageReply
   }) async {
     try {
       var messageId = Uuid().v1();
@@ -99,7 +101,8 @@ class ChatRepository {
           messageType: MessageEnum.text,
           messageId: messageId,
           receiverUserName: receiverUserData.name,
-          senderUserName: senderUser.name);
+          senderUserName: senderUser.name,
+          repliedMessage: messageReply);
     } catch (e) {
       showSnackBar(context: context, text: e.toString());
     }
@@ -153,6 +156,7 @@ class ChatRepository {
     required String senderUserName,
     required String receiverUserName,
     required MessageEnum messageType,
+    required MessageReply? repliedMessage,
   }) async {
     final message = Message(
         senderId: senderUserId,
@@ -161,7 +165,13 @@ class ChatRepository {
         type: messageType,
         timeSent: timeSent,
         messageId: messageId,
-        isSeen: false);
+        isSeen: false,
+        repliedMessage: repliedMessage == null ? '' : repliedMessage.message,
+        repliedToUser:
+            repliedMessage == null ? '' : repliedMessage.messageOwnerName,
+        repliedType: repliedMessage == null
+            ? MessageEnum.text
+            : repliedMessage.messageType);
 
     await firestore
         .collection(AppConstants.usersCollection)
@@ -189,6 +199,7 @@ class ChatRepository {
     required UserModel senderUser,
     required ProviderRef ref,
     required MessageEnum fileType,
+    required MessageReply? messageReply
   }) async {
     try {
       final timeSent = DateTime.now();
@@ -242,6 +253,7 @@ class ChatRepository {
         senderUserName: senderUser.name,
         receiverUserName: receiverUserData.name,
         messageType: fileType,
+        repliedMessage: messageReply
       );
     } catch (e) {
       showSnackBar(
