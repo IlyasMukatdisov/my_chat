@@ -70,13 +70,12 @@ class ChatRepository {
     );
   }
 
-  void sendTextMessage({
-    required BuildContext context,
-    required String text,
-    required String receiverUserId,
-    required UserModel senderUser,
-    required MessageReply? messageReply
-  }) async {
+  void sendTextMessage(
+      {required BuildContext context,
+      required String text,
+      required String receiverUserId,
+      required UserModel senderUser,
+      required MessageReply? messageReply}) async {
     try {
       var messageId = Uuid().v1();
       var timeSend = DateTime.now();
@@ -167,15 +166,13 @@ class ChatRepository {
         messageId: messageId,
         isSeen: false,
         repliedMessage: messageReply == null ? '' : messageReply.message,
-        repliedToUser:
-            messageReply == null
-          ? ''
-          : messageReply.isMe
-              ? senderUserName
-              : receiverUserName,
-        repliedType: messageReply == null
-            ? MessageEnum.text
-            : messageReply.messageType);
+        repliedToUser: messageReply == null
+            ? ''
+            : messageReply.isMe
+                ? senderUserName
+                : receiverUserName,
+        repliedType:
+            messageReply == null ? MessageEnum.text : messageReply.messageType);
 
     await firestore
         .collection(AppConstants.usersCollection)
@@ -196,15 +193,14 @@ class ChatRepository {
         .set(message.toMap());
   }
 
-  void sendFileMessage({
-    required BuildContext context,
-    required File file,
-    required String receiverUserId,
-    required UserModel senderUser,
-    required ProviderRef ref,
-    required MessageEnum fileType,
-    required MessageReply? messageReply
-  }) async {
+  void sendFileMessage(
+      {required BuildContext context,
+      required File file,
+      required String receiverUserId,
+      required UserModel senderUser,
+      required ProviderRef ref,
+      required MessageEnum fileType,
+      required MessageReply? messageReply}) async {
     try {
       final timeSent = DateTime.now();
       var messageId = const Uuid().v1();
@@ -249,19 +245,47 @@ class ChatRepository {
         timeSent: timeSent,
       );
       _saveMessageToMessageSubCollection(
-        senderUserId: senderUser.uid,
-        receiverUserId: receiverUserId,
-        text: fileUrl,
-        timeSent: timeSent,
-        messageId: messageId,
-        senderUserName: senderUser.name,
-        receiverUserName: receiverUserData.name,
-        messageType: fileType,
-        messageReply: messageReply
-      );
+          senderUserId: senderUser.uid,
+          receiverUserId: receiverUserId,
+          text: fileUrl,
+          timeSent: timeSent,
+          messageId: messageId,
+          senderUserName: senderUser.name,
+          receiverUserName: receiverUserData.name,
+          messageType: fileType,
+          messageReply: messageReply);
     } catch (e) {
       showSnackBar(
           context: context, text: AppLocalizations.of(context).cant_send_file);
+    }
+  }
+
+  void setChatMessageSeen({
+    required BuildContext context,
+    required String receiverUserId,
+    required String senderUserId,
+    required String messageId,
+  }) async {
+    try {
+      await firestore
+          .collection(AppConstants.usersCollection)
+          .doc(senderUserId)
+          .collection(AppConstants.chatsCollection)
+          .doc(receiverUserId)
+          .collection(AppConstants.messagesCollection)
+          .doc(messageId)
+          .update({'isSeen': true});
+
+      await firestore
+          .collection(AppConstants.usersCollection)
+          .doc(receiverUserId)
+          .collection(AppConstants.chatsCollection)
+          .doc(senderUserId)
+          .collection(AppConstants.messagesCollection)
+          .doc(messageId)
+          .update({'isSeen': true});
+    } catch (e) {
+      showSnackBar(context: context, text: e.toString());
     }
   }
 }

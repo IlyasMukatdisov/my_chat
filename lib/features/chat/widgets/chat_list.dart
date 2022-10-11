@@ -37,7 +37,7 @@ class _ChatListState extends ConsumerState<ChatList> {
     super.dispose();
   }
 
-  void Reply(
+  void reply(
       {required String message,
       required bool isMe,
       required MessageEnum messageType,
@@ -112,7 +112,7 @@ class _ChatListState extends ConsumerState<ChatList> {
                                 repliedType: message.repliedType,
                                 repliedToUser: message.repliedToUser,
                                 onLeftSwipe: () {
-                                  Reply(
+                                  reply(
                                       message: message.text,
                                       isMe: true,
                                       messageType: message.type,
@@ -135,9 +135,9 @@ class _ChatListState extends ConsumerState<ChatList> {
                                 type: message.type,
                                 repliedText: message.repliedMessage,
                                 repliedType: message.repliedType,
-                                userName: message.repliedToUser,
+                                repliedToUser: message.repliedToUser,
                                 onRightSwipe: () {
-                                  Reply(
+                                  reply(
                                     replyingMessageOwnerId: message.senderId,
                                     message: message.text,
                                     isMe: false,

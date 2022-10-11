@@ -11,7 +11,7 @@ class SenderMessageCard extends StatelessWidget {
   final MessageEnum type;
   final VoidCallback onRightSwipe;
   final String repliedText;
-  final String userName;
+  final String repliedToUser;
   final MessageEnum repliedType;
 
   const SenderMessageCard({
@@ -21,12 +21,13 @@ class SenderMessageCard extends StatelessWidget {
     required this.type,
     required this.onRightSwipe,
     required this.repliedText,
-    required this.userName,
+    required this.repliedToUser,
     required this.repliedType,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final bool isReplying = repliedText.isNotEmpty;
     return SwipeTo(
       onRightSwipe: onRightSwipe,
       child: Align(
@@ -56,9 +57,42 @@ class SenderMessageCard extends StatelessWidget {
                           top: 5,
                           bottom: 30,
                         ),
-                  child: MessageContent(
-                    message: message,
-                    type: type,
+                  child: Column(
+                    children: [
+                      isReplying
+                          ? Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: const BoxDecoration(
+                                border: Border(
+                                    left: BorderSide(
+                                        color: backgroundColor, width: 3)),
+                              ),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    repliedToUser,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  MessageContent(
+                                    message: repliedText,
+                                    type: repliedType,
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  )
+                                ],
+                              ),
+                            )
+                          : const SizedBox(),
+                      MessageContent(
+                        message: message,
+                        type: type,
+                      ),
+                    ],
                   ),
                 ),
                 Positioned(
