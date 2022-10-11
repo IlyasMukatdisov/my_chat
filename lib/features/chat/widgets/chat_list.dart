@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -64,7 +66,7 @@ class _ChatListState extends ConsumerState<ChatList> {
             case ConnectionState.done:
               if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                 String splitDate = DateFormat()
-                    .add_yMd()
+                    .add_yMMMMd()
                     .format(snapshot.data!.first.timeSent);
                 bool shouldShowDate;
 
@@ -81,22 +83,34 @@ class _ChatListState extends ConsumerState<ChatList> {
                     controller: _scrollController,
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
+                      final Message message = snapshot.data![index];
                       if (index == 0) {
                         shouldShowDate = true;
                         tempDate = splitDate;
                       } else {
                         shouldShowDate = false;
                         tempDate = DateFormat()
-                            .add_yMd()
-                            .format(snapshot.data![index].timeSent);
+                            .add_yMMMMd()
+                            .format(message.timeSent);
                         if (splitDate != tempDate) {
                           shouldShowDate = true;
                           splitDate = tempDate;
                         }
                       }
 
-                      final Message message = snapshot.data![index];
                       final date = DateFormat.Hm().format(message.timeSent);
+
+                      if (!message.isSeen &&
+                          message.receiverId ==
+                              FirebaseAuth.instance.currentUser!.uid) {
+                        ref.read(chatControllerProvider).setChatMessageSeen(
+                              context: context,
+                              receiverUserId: message.receiverId,
+                              senderUserId: message.senderId,
+                              messageId: message.messageId,
+                            );
+                      }
+
                       if (message.senderId != widget.receiverUserId) {
                         return Padding(
                           padding: const EdgeInsets.only(
@@ -105,6 +119,7 @@ class _ChatListState extends ConsumerState<ChatList> {
                             children: [
                               shouldShowDate ? Text(splitDate) : Container(),
                               MyMessageCard(
+                                isSeen: message.isSeen,
                                 message: message.text,
                                 date: date,
                                 type: message.type,

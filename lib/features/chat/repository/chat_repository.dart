@@ -205,9 +205,9 @@ class ChatRepository {
       final timeSent = DateTime.now();
       var messageId = const Uuid().v1();
       String fileUrl = await ref
-          .read(commonFirebaseStorageRepository)
+          .read(commonFirebaseStorageRepositoryProvider)
           .storeToFirebase(
-              ref:
+              path:
                   'chat/${fileType.type}/${senderUser.uid}/$receiverUserId/$messageId',
               file: file);
 

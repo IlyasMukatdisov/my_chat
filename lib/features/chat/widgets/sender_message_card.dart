@@ -58,16 +58,18 @@ class SenderMessageCard extends StatelessWidget {
                           bottom: 30,
                         ),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       isReplying
                           ? Container(
                               padding: const EdgeInsets.all(10),
                               decoration: const BoxDecoration(
                                 border: Border(
-                                    left: BorderSide(
-                                        color: backgroundColor, width: 3)),
+                                    left:
+                                        BorderSide(color: tabColor, width: 3)),
                               ),
                               child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     repliedToUser,
@@ -81,13 +83,13 @@ class SenderMessageCard extends StatelessWidget {
                                     message: repliedText,
                                     type: repliedType,
                                   ),
-                                  const SizedBox(
-                                    height: 5,
-                                  )
                                 ],
                               ),
                             )
                           : const SizedBox(),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       MessageContent(
                         message: message,
                         type: type,

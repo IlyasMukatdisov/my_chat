@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_chat/common/utils/utils.dart';
 import 'package:my_chat/features/auth/controller/auth_controller.dart';
 import 'package:my_chat/features/select_contact/screens/select_contact_screen.dart';
+import 'package:my_chat/features/status/screens/confirm_status_screen.dart';
+import 'package:my_chat/features/status/screens/status_contacts_screen.dart';
 import 'package:my_chat/generated/l10n.dart';
 import 'package:my_chat/utils/colors.dart';
 import 'package:my_chat/features/chat/widgets/contacts_list.dart';
@@ -15,17 +20,27 @@ class MobileLayoutScreen extends ConsumerStatefulWidget {
 }
 
 class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
-    with WidgetsBindingObserver {
+    with WidgetsBindingObserver, TickerProviderStateMixin {
+  late final TabController _tabController;
+  int index = 0;
+
   @override
   void initState() {
     ref.read(authControllerProvider).setUserState(true);
     WidgetsBinding.instance.addObserver(this);
+    _tabController = TabController(length: 3, vsync: this);
+    _tabController.addListener(() {
+      setState(() {
+        index = _tabController.index;
+      });
+    });
     super.initState();
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    _tabController.dispose();
     super.dispose();
   }
 
@@ -69,6 +84,7 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
             ),
           ],
           bottom: TabBar(
+            controller: _tabController,
             indicatorColor: tabColor,
             indicatorWeight: 4,
             labelColor: tabColor,
@@ -89,18 +105,52 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
             ],
           ),
         ),
-        body: const ContactsList(),
+        body: TabBarView(
+          controller: _tabController,
+          children: [
+            const ContactsList(),
+            const StatusContactsScreen(),
+            Text(AppLocalizations.of(context).calls.toUpperCase()),
+          ],
+        ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.of(context).pushNamed(SelectContactsScreen.routeName);
+          onPressed: () async {
+            switch (_tabController.index) {
+              case 0:
+                {
+                  Navigator.of(context)
+                      .pushNamed(SelectContactsScreen.routeName);
+                  break;
+                }
+              case 1:
+                {
+                  File? pickedImage = await pickImageFromGallery(context);
+                  if (pickedImage != null) {
+                    _navigate(ConfirmStatusScreen.routeName, pickedImage);
+                  }
+                  break;
+                }
+              case 2:
+                break;
+            }
           },
           backgroundColor: tabColor,
-          child: const Icon(
-            Icons.comment,
+          child: Icon(
+            index == 0
+                ? Icons.comment
+                : index == 1
+                    ? Icons.add_a_photo
+                    : index == 2
+                        ? Icons.call
+                        : Icons.error,
             color: Colors.white,
           ),
         ),
       ),
     );
+  }
+
+  void _navigate(String routeName, Object? arguments) {
+    Navigator.of(context).pushNamed(routeName, arguments: arguments);
   }
 }

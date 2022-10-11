@@ -42,4 +42,8 @@ class SelectContactController {
       onNotFound: onNotFound,
     );
   }
+
+  Future<List<Contact>> getContacts() {
+    return selectContactRepository.getContacts();
+  }
 }

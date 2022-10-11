@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:my_chat/common/widgets/error_screen.dart';
 import 'package:my_chat/features/auth/screens/login_screen.dart';
 import 'package:my_chat/features/auth/screens/otp_screen.dart';
 import 'package:my_chat/features/auth/screens/user_info_screen.dart';
 import 'package:my_chat/features/select_contact/screens/select_contact_screen.dart';
+import 'package:my_chat/features/status/screens/confirm_status_screen.dart';
 
 import 'package:my_chat/generated/l10n.dart';
 import 'package:my_chat/features/chat/screens/mobile_chat_screen.dart';
@@ -30,10 +33,20 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(
         builder: (context) => const MobileLayoutScreen(),
       );
+      
     case SelectContactsScreen.routeName:
       return MaterialPageRoute(
         builder: (context) => const SelectContactsScreen(),
       );
+
+    case ConfirmStatusScreen.routeName:
+      final arguments = settings.arguments as File;
+      return MaterialPageRoute(
+        builder: (context) => ConfirmStatusScreen(
+          file: arguments,
+        ),
+      );
+
     case MobileChatScreen.routeName:
       final arguments = settings.arguments as Map<String, dynamic>;
       final name = arguments['name'];

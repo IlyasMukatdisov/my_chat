@@ -38,10 +38,8 @@ class AuthRepository {
   }
 
   Future<UserModel?> getUserData(String uid) async {
-    var userData = await firestore
-        .collection(AppConstants.usersCollection)
-        .doc(uid)
-        .get();
+    var userData =
+        await firestore.collection(AppConstants.usersCollection).doc(uid).get();
 
     UserModel? user;
     if (userData.data() != null) {
@@ -110,9 +108,10 @@ class AuthRepository {
       String photoUrl = AppConstants.defaultProfilePic;
       if (profilePic != null) {
         photoUrl = await ref
-            .read(commonFirebaseStorageRepository)
+            .read(commonFirebaseStorageRepositoryProvider)
             .storeToFirebase(
-                ref: '${AppConstants.profilePicFolder}/$uid', file: profilePic);
+                path: '${AppConstants.profilePicFolder}/$uid',
+                file: profilePic);
       }
       UserModel user = UserModel(
           name: name,

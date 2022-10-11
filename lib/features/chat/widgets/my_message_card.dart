@@ -1,10 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:swipe_to/swipe_to.dart';
 
 import 'package:my_chat/common/enums/message_enum.dart';
 import 'package:my_chat/features/chat/widgets/message_content.dart';
 import 'package:my_chat/utils/colors.dart';
-import 'package:swipe_to/swipe_to.dart';
 
 class MyMessageCard extends StatelessWidget {
   final String message;
@@ -14,6 +14,7 @@ class MyMessageCard extends StatelessWidget {
   final String repliedText;
   final String repliedToUser;
   final MessageEnum repliedType;
+  final bool isSeen;
 
   const MyMessageCard({
     Key? key,
@@ -24,6 +25,7 @@ class MyMessageCard extends StatelessWidget {
     required this.repliedText,
     required this.repliedToUser,
     required this.repliedType,
+    required this.isSeen,
   }) : super(key: key);
 
   @override
@@ -60,6 +62,7 @@ class MyMessageCard extends StatelessWidget {
                           bottom: 30,
                         ),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       isReplying
                           ? Container(
@@ -70,6 +73,7 @@ class MyMessageCard extends StatelessWidget {
                                         color: backgroundColor, width: 3)),
                               ),
                               child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     repliedToUser,
@@ -83,13 +87,13 @@ class MyMessageCard extends StatelessWidget {
                                     message: repliedText,
                                     type: repliedType,
                                   ),
-                                  const SizedBox(
-                                    height: 5,
-                                  )
                                 ],
                               ),
                             )
                           : const SizedBox(),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       MessageContent(
                         message: message,
                         type: type,
@@ -112,8 +116,8 @@ class MyMessageCard extends StatelessWidget {
                       const SizedBox(
                         width: 5,
                       ),
-                      const Icon(
-                        Icons.done_all,
+                      Icon(
+                        isSeen ? Icons.done_all : Icons.done,
                         size: 20,
                         color: Colors.white60,
                       ),
