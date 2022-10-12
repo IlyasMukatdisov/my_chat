@@ -25,6 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "agree_and_continue":
             MessageLookupByLibrary.simpleMessage("AGREE AND CONTINUE"),
         "calls": MessageLookupByLibrary.simpleMessage("Calls"),
+        "cant_load_data": MessageLookupByLibrary.simpleMessage(
+            "Can\'t load data. PLease try again later"),
         "cant_send_file": MessageLookupByLibrary.simpleMessage(
             "Can\'t send file. Please try again later"),
         "chats": MessageLookupByLibrary.simpleMessage("Chats"),

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_chat/features/status/controller/status_controller.dart';
 
 class ConfirmStatusScreen extends ConsumerWidget {
   static const String routeName = '/confirm-status-screen';
@@ -10,6 +11,13 @@ class ConfirmStatusScreen extends ConsumerWidget {
     Key? key,
     required this.file,
   }) : super(key: key);
+
+  void addStatus(WidgetRef ref, BuildContext context) {
+    ref.read(statusControllerProvider).addStatus(
+          file: file,
+          context: context,
+        );
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -21,7 +29,7 @@ class ConfirmStatusScreen extends ConsumerWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => addStatus(ref, context),
         child: const Icon(
           Icons.done,
           color: Colors.white,

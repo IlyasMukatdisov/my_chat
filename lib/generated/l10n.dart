@@ -299,6 +299,16 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Can't load data. PLease try again later`
+  String get cant_load_data {
+    return Intl.message(
+      'Can\'t load data. PLease try again later',
+      name: 'cant_load_data',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

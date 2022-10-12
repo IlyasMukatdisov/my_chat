@@ -40,12 +40,12 @@ class Status {
       uid: map['uid'] as String,
       username: map['username'] as String,
       phoneNumber: map['phoneNumber'] as String,
-      photoUrl: List<String>.from((map['photoUrl'] as List<String>)),
+      photoUrl: List<String>.from(map['photoUrl']),
       profilePic: map['profilePic'] as String,
       createdDate:
           DateTime.fromMillisecondsSinceEpoch(map['createdDate'] as int),
       statusId: map['statusId'] as String,
-      whoCanSee: List<String>.from((map['whoCanSee'] as List<String>)),
+      whoCanSee: List<String>.from((map['whoCanSee'])),
     );
   }
 
