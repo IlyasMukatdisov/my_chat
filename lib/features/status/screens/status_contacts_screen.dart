@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_chat/common/widgets/loader_screen.dart';
 import 'package:my_chat/features/status/controller/status_controller.dart';
+import 'package:my_chat/features/status/screens/status_screen.dart';
 import 'package:my_chat/models/status_model.dart';
+import 'package:my_chat/utils/app_constants.dart';
 import 'package:my_chat/utils/colors.dart';
 
 class StatusContactsScreen extends ConsumerWidget {
@@ -15,35 +17,44 @@ class StatusContactsScreen extends ConsumerWidget {
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.done:
-            return ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                var statusData = snapshot.data![index];
-                return Column(
-                  children: [
-                    InkWell(
-                      onTap: () {},
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: ListTile(
-                          title: Text(
-                            statusData.username,
-                            style: const TextStyle(
-                                fontSize: 18, overflow: TextOverflow.ellipsis),
-                          ),
-                          leading: CircleAvatar(
-                            backgroundImage: NetworkImage(
-                              statusData.profilePic,
+            return Padding(
+              padding: const EdgeInsets.only(top: AppConstants.defaultPadding),
+              child: ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  var statusData = snapshot.data![index];
+                  return Column(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(
+                            StatusScreen.routeName,
+                            arguments: statusData,
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: ListTile(
+                            title: Text(
+                              statusData.username,
+                              style: const TextStyle(
+                                  fontSize: 18,
+                                  overflow: TextOverflow.ellipsis),
                             ),
-                            radius: 30,
+                            leading: CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                statusData.profilePic,
+                              ),
+                              radius: 30,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    const Divider(color: dividerColor, indent: 85),
-                  ],
-                );
-              },
+                      const Divider(color: dividerColor, indent: 85),
+                    ],
+                  );
+                },
+              ),
             );
 
           default:

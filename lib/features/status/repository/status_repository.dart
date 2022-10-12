@@ -117,24 +117,44 @@ class StatusRepository {
     try {
       List<Contact> contacts =
           await ref.read(selectContactControllerProvider).getContacts();
+
+      var statusesSnapshot = await firestore
+          .collection(AppConstants.statusCollection)
+          .where('createdDate',
+              isGreaterThan: DateTime.now()
+                  .subtract(const Duration(hours: 24))
+                  .millisecondsSinceEpoch)
+          .get();
       for (var contact in contacts) {
-        var statusesSnapshot = await firestore
-            .collection(AppConstants.statusCollection)
-            .where('phoneNumber',
-                isEqualTo: contact.phones.first.normalizedNumber.isNotEmpty
-                    ? contact.phones.first.normalizedNumber.replaceAll(' ', '')
-                    : contact.phones.first.number.replaceAll(' ', ''))
-            .where('createdDate',
-                isGreaterThan: DateTime.now()
-                    .subtract(const Duration(hours: 24))
-                    .millisecondsSinceEpoch)
-            .get();
+        String contactNumber = contact.phones.first.normalizedNumber.isNotEmpty
+            ? contact.phones.first.normalizedNumber.replaceAll(' ', '')
+            : contact.phones.first.number.replaceAll(' ', '');
+
         for (var tempData in statusesSnapshot.docs) {
           Status tempStatus = Status.fromMap(tempData.data());
-          if (tempStatus.whoCanSee.contains(auth.currentUser!.uid)) {
+          if (tempStatus.whoCanSee.contains(auth.currentUser!.uid) &&
+              tempStatus.phoneNumber == contactNumber) {
             statusData.add(tempStatus);
           }
         }
+        // !Not Optimized Code
+        // var statusesSnapshot = await firestore
+        //     .collection(AppConstants.statusCollection)
+        //     .where('phoneNumber',
+        //         isEqualTo: contact.phones.first.normalizedNumber.isNotEmpty
+        //             ? contact.phones.first.normalizedNumber.replaceAll(' ', '')
+        //             : contact.phones.first.number.replaceAll(' ', ''))
+        //     .where('createdDate',
+        //         isGreaterThan: DateTime.now()
+        //             .subtract(const Duration(hours: 24))
+        //             .millisecondsSinceEpoch)
+        //     .get();
+        // for (var tempData in statusesSnapshot.docs) {
+        //   Status tempStatus = Status.fromMap(tempData.data());
+        //   if (tempStatus.whoCanSee.contains(auth.currentUser!.uid)) {
+        //     statusData.add(tempStatus);
+        //   }
+        // }
       }
     } catch (e) {
       showSnackBar(

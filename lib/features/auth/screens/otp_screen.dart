@@ -1,8 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_chat/features/auth/controller/auth_controller.dart';
 import 'package:my_chat/features/auth/screens/user_info_screen.dart';
+import 'package:my_chat/features/chat/screens/mobile_chat_screen.dart';
 import 'package:my_chat/generated/l10n.dart';
+import 'package:my_chat/screens/mobile_layout_screen.dart';
 import 'package:my_chat/utils/app_constants.dart';
 
 class OtpScreen extends ConsumerWidget {
@@ -18,8 +22,23 @@ class OtpScreen extends ConsumerWidget {
           context: context,
           verificationId: verificationId,
           userOTP: value,
-          onSuccess: () {
-            Navigator.pushNamedAndRemoveUntil(context, UserInfoScreen.routeName, (route) => false,);
+          onSuccess: () async {
+            var currentUser =
+                await ref.read(authControllerProvider).getCurrentUserData();
+            if (currentUser!.name.isNotEmpty &&
+                currentUser.profilePic.isNotEmpty) {
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                MobileLayoutScreen.routeName,
+                (route) => false,
+              );
+            } else {
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                UserInfoScreen.routeName,
+                (route) => false,
+              );
+            }
           },
         );
   }
