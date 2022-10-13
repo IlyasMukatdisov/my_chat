@@ -7,53 +7,65 @@ import 'package:my_chat/models/status_model.dart';
 import 'package:my_chat/utils/app_constants.dart';
 import 'package:my_chat/utils/colors.dart';
 
-class StatusContactsScreen extends ConsumerWidget {
-  const StatusContactsScreen({Key? key}) : super(key: key);
+class StatusContactsScreen extends ConsumerStatefulWidget {
+  const StatusContactsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _StatusContactsScreenState();
+}
+
+class _StatusContactsScreenState extends ConsumerState<StatusContactsScreen> {
+  @override
+  Widget build(BuildContext context) {
     return FutureBuilder<List<Status>>(
       future: ref.read(statusControllerProvider).getStatus(context: context),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.done:
-            return Padding(
-              padding: const EdgeInsets.only(top: AppConstants.defaultPadding),
-              child: ListView.builder(
-                itemCount: snapshot.data!.length,
-                itemBuilder: (context, index) {
-                  var statusData = snapshot.data![index];
-                  return Column(
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          Navigator.of(context).pushNamed(
-                            StatusScreen.routeName,
-                            arguments: statusData,
-                          );
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: ListTile(
-                            title: Text(
-                              statusData.username,
-                              style: const TextStyle(
-                                  fontSize: 18,
-                                  overflow: TextOverflow.ellipsis),
-                            ),
-                            leading: CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                statusData.profilePic,
+            return RefreshIndicator(
+              onRefresh: () async {
+                setState(() {});
+              },
+              child: Padding(
+                padding:
+                    const EdgeInsets.only(top: AppConstants.defaultPadding),
+                child: ListView.builder(
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    var statusData = snapshot.data![index];
+                    return Column(
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context).pushNamed(
+                              StatusScreen.routeName,
+                              arguments: statusData,
+                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: ListTile(
+                              title: Text(
+                                statusData.username,
+                                style: const TextStyle(
+                                    fontSize: 18,
+                                    overflow: TextOverflow.ellipsis),
                               ),
-                              radius: 30,
+                              leading: CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                  statusData.profilePic,
+                                ),
+                                radius: 30,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      const Divider(color: dividerColor, indent: 85),
-                    ],
-                  );
-                },
+                        const Divider(color: dividerColor, indent: 85),
+                      ],
+                    );
+                  },
+                ),
               ),
             );
 

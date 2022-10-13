@@ -5,6 +5,7 @@ import 'package:my_chat/common/widgets/error_screen.dart';
 import 'package:my_chat/features/auth/screens/login_screen.dart';
 import 'package:my_chat/features/auth/screens/otp_screen.dart';
 import 'package:my_chat/features/auth/screens/user_info_screen.dart';
+import 'package:my_chat/features/group/screens/create_group_screen.dart';
 import 'package:my_chat/features/select_contact/screens/select_contact_screen.dart';
 import 'package:my_chat/features/status/screens/confirm_status_screen.dart';
 import 'package:my_chat/features/status/screens/status_screen.dart';
@@ -39,6 +40,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case SelectContactsScreen.routeName:
       return MaterialPageRoute(
         builder: (context) => const SelectContactsScreen(),
+      );
+    case CreateGroupScreen.routeName:
+      return MaterialPageRoute(
+        builder: (context) => const CreateGroupScreen(),
       );
 
     case ConfirmStatusScreen.routeName:

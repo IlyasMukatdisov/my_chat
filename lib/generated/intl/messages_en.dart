@@ -30,10 +30,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "cant_send_file": MessageLookupByLibrary.simpleMessage(
             "Can\'t send file. Please try again later"),
         "chats": MessageLookupByLibrary.simpleMessage("Chats"),
+        "create_group": MessageLookupByLibrary.simpleMessage("Create group"),
         "enter_phone_number":
             MessageLookupByLibrary.simpleMessage("Enter phone number"),
         "enter_your_name":
             MessageLookupByLibrary.simpleMessage("Enter your name"),
+        "group_name": MessageLookupByLibrary.simpleMessage("Group name"),
         "landing_privacy_terms": MessageLookupByLibrary.simpleMessage(
             "Read our Privacy Policy. Tap \"Agree and continue\" to accept the Terms of Service."),
         "landing_title": MessageLookupByLibrary.simpleMessage("Welcome to"),

@@ -309,6 +309,26 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Create group`
+  String get create_group {
+    return Intl.message(
+      'Create group',
+      name: 'create_group',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Group name`
+  String get group_name {
+    return Intl.message(
+      'Group name',
+      name: 'group_name',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

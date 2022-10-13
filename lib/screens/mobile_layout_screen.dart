@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_chat/common/utils/utils.dart';
 import 'package:my_chat/features/auth/controller/auth_controller.dart';
+import 'package:my_chat/features/group/screens/create_group_screen.dart';
 import 'package:my_chat/features/select_contact/screens/select_contact_screen.dart';
 import 'package:my_chat/features/status/screens/confirm_status_screen.dart';
 import 'package:my_chat/features/status/screens/status_contacts_screen.dart';
@@ -78,9 +79,29 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
               icon: const Icon(Icons.search, color: Colors.grey),
               onPressed: () {},
             ),
-            IconButton(
+            PopupMenuButton(
               icon: const Icon(Icons.more_vert, color: Colors.grey),
-              onPressed: () {},
+              itemBuilder: (context) {
+                return [
+                  PopupMenuItem(
+                    child: ListTile(
+                      dense: true,
+                      contentPadding: EdgeInsets.zero,
+                      horizontalTitleGap: 0,
+                      minLeadingWidth: 35,
+                      title: Text(
+                        AppLocalizations.of(context).create_group,
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                      leading: const Icon(Icons.group),
+                      onTap: () => Future(
+                        () => Navigator.of(context)
+                            .pushNamed(CreateGroupScreen.routeName),
+                      ),
+                    ),
+                  )
+                ];
+              },
             ),
           ],
           bottom: TabBar(

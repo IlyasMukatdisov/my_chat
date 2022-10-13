@@ -24,5 +24,7 @@
     "no_messages_yet": "No messages yet",
     "mic_permission_not_granted": "Microphone permission not granted",
     "me": "Me",
-    "cant_load_data": "Can't load data. PLease try again later"
+    "cant_load_data": "Can't load data. PLease try again later",
+    "create_group": "Create group",
+    "group_name": "Group name"
 }

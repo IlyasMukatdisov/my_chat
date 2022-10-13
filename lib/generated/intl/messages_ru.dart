@@ -30,10 +30,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "cant_send_file": MessageLookupByLibrary.simpleMessage(
             "Ошибка отправки файла. Пожалуйста попробуйте позже"),
         "chats": MessageLookupByLibrary.simpleMessage("Чаты"),
+        "create_group": MessageLookupByLibrary.simpleMessage("Создать группу"),
         "enter_phone_number":
             MessageLookupByLibrary.simpleMessage("Введите номер телефона"),
         "enter_your_name":
             MessageLookupByLibrary.simpleMessage("Введите ваше имя"),
+        "group_name": MessageLookupByLibrary.simpleMessage("Имя группы"),
         "landing_privacy_terms": MessageLookupByLibrary.simpleMessage(
             "Ознакомьтесь с нашей Политикой конфиденциальности. Нажмите \"Принять и продолжить\", чтобы принять Условия использования."),
         "landing_title":

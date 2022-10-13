@@ -17,6 +17,7 @@ class ConfirmStatusScreen extends ConsumerWidget {
           file: file,
           context: context,
         );
+    Navigator.of(context).pop();
   }
 
   @override
