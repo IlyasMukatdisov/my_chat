@@ -25,6 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "agree_and_continue":
             MessageLookupByLibrary.simpleMessage("AGREE AND CONTINUE"),
         "calls": MessageLookupByLibrary.simpleMessage("Calls"),
+        "cant_create_group":
+            MessageLookupByLibrary.simpleMessage("Can\'t create group"),
         "cant_load_data": MessageLookupByLibrary.simpleMessage(
             "Can\'t load data. PLease try again later"),
         "cant_send_file": MessageLookupByLibrary.simpleMessage(
@@ -35,6 +37,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter phone number"),
         "enter_your_name":
             MessageLookupByLibrary.simpleMessage("Enter your name"),
+        "fill_all_fields":
+            MessageLookupByLibrary.simpleMessage("Fill all fields"),
         "group_name": MessageLookupByLibrary.simpleMessage("Group name"),
         "landing_privacy_terms": MessageLookupByLibrary.simpleMessage(
             "Read our Privacy Policy. Tap \"Agree and continue\" to accept the Terms of Service."),
@@ -47,6 +51,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "My chat need to verify your phone number"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
+        "no_groups_messages_yet":
+            MessageLookupByLibrary.simpleMessage("No group messages yet"),
         "no_messages_yet":
             MessageLookupByLibrary.simpleMessage("No messages yet"),
         "offline": MessageLookupByLibrary.simpleMessage("Offline"),

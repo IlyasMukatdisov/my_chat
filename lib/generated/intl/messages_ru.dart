@@ -25,6 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "agree_and_continue": MessageLookupByLibrary.simpleMessage(
             "Согласен с правилами и продолжаю"),
         "calls": MessageLookupByLibrary.simpleMessage("Звонки"),
+        "cant_create_group":
+            MessageLookupByLibrary.simpleMessage("Ошибка создания группы"),
         "cant_load_data": MessageLookupByLibrary.simpleMessage(
             "Ошибка загрузки данных. Пожалуйста повторите позже"),
         "cant_send_file": MessageLookupByLibrary.simpleMessage(
@@ -35,6 +37,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Введите номер телефона"),
         "enter_your_name":
             MessageLookupByLibrary.simpleMessage("Введите ваше имя"),
+        "fill_all_fields":
+            MessageLookupByLibrary.simpleMessage("Заполните все поля"),
         "group_name": MessageLookupByLibrary.simpleMessage("Имя группы"),
         "landing_privacy_terms": MessageLookupByLibrary.simpleMessage(
             "Ознакомьтесь с нашей Политикой конфиденциальности. Нажмите \"Принять и продолжить\", чтобы принять Условия использования."),
@@ -48,6 +52,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "My chat необходимо проверить ваш номер телефона"),
         "name": MessageLookupByLibrary.simpleMessage("Имя"),
         "next": MessageLookupByLibrary.simpleMessage("Далее"),
+        "no_groups_messages_yet":
+            MessageLookupByLibrary.simpleMessage("Пока нет групповых чатов"),
         "no_messages_yet":
             MessageLookupByLibrary.simpleMessage("Пока нет сообщений"),
         "offline": MessageLookupByLibrary.simpleMessage("Не в сети"),

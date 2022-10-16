@@ -4,22 +4,24 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sound/flutter_sound.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
+
 import 'package:my_chat/common/enums/message_enum.dart';
 import 'package:my_chat/common/provider/message_reply_provider.dart';
 import 'package:my_chat/common/utils/utils.dart';
 import 'package:my_chat/features/chat/controller/chat_controller.dart';
 import 'package:my_chat/features/chat/widgets/message_reply_preview.dart';
 import 'package:my_chat/generated/l10n.dart';
-import 'package:my_chat/utils/app_constants.dart';
 import 'package:my_chat/utils/colors.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class BottomChatField extends ConsumerStatefulWidget {
   final String receiverUserId;
+  final bool iSGroupChat;
   const BottomChatField({
     Key? key,
     required this.receiverUserId,
+    required this.iSGroupChat,
   }) : super(key: key);
 
   @override
@@ -61,6 +63,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
   void sendTextMessage() {
     if (!isTextEmpty) {
       ref.read(chatControllerProvider).sendTextMessage(
+            isGroupChat: widget.iSGroupChat,
             context: context,
             text: _messageController.text.trim(),
             receiverUserId: widget.receiverUserId,
@@ -78,6 +81,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
     MessageEnum fileType,
   ) {
     ref.read(chatControllerProvider).sendFileMessage(
+        isGroupChat: widget.iSGroupChat,
         context: context,
         file: file,
         receiverUserId: widget.receiverUserId,

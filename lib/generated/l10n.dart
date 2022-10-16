@@ -329,6 +329,36 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Can't create group`
+  String get cant_create_group {
+    return Intl.message(
+      'Can\'t create group',
+      name: 'cant_create_group',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fill all fields`
+  String get fill_all_fields {
+    return Intl.message(
+      'Fill all fields',
+      name: 'fill_all_fields',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No group messages yet`
+  String get no_groups_messages_yet {
+    return Intl.message(
+      'No group messages yet',
+      name: 'no_groups_messages_yet',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

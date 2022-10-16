@@ -7,4 +7,5 @@ class AppConstants {
   static const chatsCollection = 'chats';
   static const messagesCollection = 'messages';
   static const statusCollection = 'status';
+  static const groupCollection = 'group';
 }

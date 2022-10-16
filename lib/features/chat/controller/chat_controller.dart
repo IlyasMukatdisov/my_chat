@@ -9,6 +9,7 @@ import 'package:my_chat/features/auth/controller/auth_controller.dart';
 
 import 'package:my_chat/features/chat/repository/chat_repository.dart';
 import 'package:my_chat/models/chat_contact.dart';
+import 'package:my_chat/models/group_model.dart';
 import 'package:my_chat/models/message.dart';
 
 final chatControllerProvider = Provider((ref) {
@@ -29,19 +30,28 @@ class ChatController {
     return chatRepository.getChatContacts();
   }
 
+  Stream<List<GroupModel>> chatGroups() {
+    return chatRepository.getGroupsContacts();
+  }
+
   Stream<List<Message>> chatStream(String receiverUserId) {
     return chatRepository.getChatStream(receiverUserId);
   }
 
-  void sendTextMessage({
-    required BuildContext context,
-    required String text,
-    required String receiverUserId,
-  }) async {
+  Stream<List<Message>> groupChatStream(String groupId) {
+    return chatRepository.getGroupChatStream(groupId);
+  }
+
+  void sendTextMessage(
+      {required BuildContext context,
+      required String text,
+      required String receiverUserId,
+      required bool isGroupChat}) async {
     final messageReply = ref.read(messageReplyProvider);
 
     ref.read(userDataAuthProvider).whenData((value) =>
         chatRepository.sendTextMessage(
+            isGroupChat: isGroupChat,
             context: context,
             text: text,
             receiverUserId: receiverUserId,
@@ -50,16 +60,17 @@ class ChatController {
     ref.read(messageReplyProvider.state).update((state) => null);
   }
 
-  void sendFileMessage({
-    required BuildContext context,
-    required File file,
-    required String receiverUserId,
-    required MessageEnum fileType,
-  }) async {
+  void sendFileMessage(
+      {required BuildContext context,
+      required File file,
+      required String receiverUserId,
+      required MessageEnum fileType,
+      required bool isGroupChat}) async {
     final messageReply = ref.read(messageReplyProvider);
     ref
         .read(userDataAuthProvider)
         .whenData((value) => chatRepository.sendFileMessage(
+              isGroupChat: isGroupChat,
               context: context,
               file: file,
               fileType: fileType,

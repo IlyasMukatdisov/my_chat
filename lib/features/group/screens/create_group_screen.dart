@@ -1,21 +1,23 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_chat/common/utils/utils.dart';
+import 'package:my_chat/features/group/controller/group_controller.dart';
 import 'package:my_chat/features/group/widgets/select_contact_group.dart';
 import 'package:my_chat/generated/l10n.dart';
 import 'package:my_chat/utils/app_constants.dart';
 import 'package:my_chat/utils/colors.dart';
 
-class CreateGroupScreen extends StatefulWidget {
+class CreateGroupScreen extends ConsumerStatefulWidget {
   static const routeName = '/create-group-screen';
   const CreateGroupScreen({super.key});
 
   @override
-  State<CreateGroupScreen> createState() => _CreateGroupScreenState();
+  ConsumerState<CreateGroupScreen> createState() => _CreateGroupScreenState();
 }
 
-class _CreateGroupScreenState extends State<CreateGroupScreen> {
+class _CreateGroupScreenState extends ConsumerState<CreateGroupScreen> {
   File? _image;
   late final TextEditingController _nameController;
 
@@ -32,8 +34,19 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
   }
 
   void createGroup() {
-    if (_nameController.text.trim().isNotEmpty && _image != null) {
-      
+    if (_nameController.text.trim().isNotEmpty &&
+        _image != null &&
+        ref.read(selectedGroupContactsProvider).isNotEmpty) {
+      ref.read(groupControllerProvider).createGroup(
+          context: context,
+          name: _nameController.text.trim(),
+          profilePic: _image!,
+          selectedContacts: ref.read(selectedGroupContactsProvider));
+      ref.read(selectedGroupContactsProvider.state).update((state) => []);
+      Navigator.of(context).pop();
+    } else {
+      showSnackBar(
+          context: context, text: AppLocalizations.of(context).fill_all_fields);
     }
   }
 
@@ -116,7 +129,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: createGroup,
         child: const Icon(
           Icons.done,
           color: Colors.white,

@@ -1,9 +1,11 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+
 import 'package:my_chat/common/enums/message_enum.dart';
 import 'package:my_chat/common/provider/message_reply_provider.dart';
 import 'package:my_chat/common/widgets/loader_screen.dart';
@@ -17,8 +19,13 @@ import 'package:my_chat/utils/app_constants.dart';
 
 class ChatList extends ConsumerStatefulWidget {
   final String receiverUserId;
+  final bool isGroupChat;
 
-  const ChatList({Key? key, required this.receiverUserId}) : super(key: key);
+  const ChatList({
+    Key? key,
+    required this.receiverUserId,
+    required this.isGroupChat,
+  }) : super(key: key);
 
   @override
   ConsumerState<ChatList> createState() => _ChatListState();
@@ -58,8 +65,13 @@ class _ChatListState extends ConsumerState<ChatList> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<Message>>(
-        stream:
-            ref.watch(chatControllerProvider).chatStream(widget.receiverUserId),
+        stream: widget.isGroupChat
+            ? ref
+                .watch(chatControllerProvider)
+                .groupChatStream(widget.receiverUserId)
+            : ref
+                .watch(chatControllerProvider)
+                .chatStream(widget.receiverUserId),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.active:
@@ -89,9 +101,8 @@ class _ChatListState extends ConsumerState<ChatList> {
                         tempDate = splitDate;
                       } else {
                         shouldShowDate = false;
-                        tempDate = DateFormat()
-                            .add_yMMMMd()
-                            .format(message.timeSent);
+                        tempDate =
+                            DateFormat().add_yMMMMd().format(message.timeSent);
                         if (splitDate != tempDate) {
                           shouldShowDate = true;
                           splitDate = tempDate;

@@ -26,5 +26,8 @@
     "me": "Me",
     "cant_load_data": "Can't load data. PLease try again later",
     "create_group": "Create group",
-    "group_name": "Group name"
+    "group_name": "Group name",
+    "cant_create_group": "Can't create group",
+    "fill_all_fields": "Fill all fields",
+    "no_groups_messages_yet": "No group messages yet"
 }

@@ -38,6 +38,8 @@ class MessageContent extends StatelessWidget {
                 });
               });
 
+              
+
               return Container(
                 width: 80,
                 alignment: Alignment.center,
