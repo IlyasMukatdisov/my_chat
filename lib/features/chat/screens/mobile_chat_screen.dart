@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:my_chat/features/auth/controller/auth_controller.dart';
+import 'package:my_chat/features/call/controller/call_controller.dart';
 import 'package:my_chat/features/chat/widgets/bottom_chat_field.dart';
 import 'package:my_chat/features/chat/widgets/chat_list.dart';
 import 'package:my_chat/generated/l10n.dart';
@@ -13,6 +14,7 @@ class MobileChatScreen extends ConsumerWidget {
   final String name;
   final String uid;
   final bool isGroupChat;
+  final String profilePic;
 
   static const routeName = '/mobile-chat-screen';
   const MobileChatScreen({
@@ -20,7 +22,17 @@ class MobileChatScreen extends ConsumerWidget {
     required this.name,
     required this.uid,
     required this.isGroupChat,
+    required this.profilePic,
   }) : super(key: key);
+
+  void createCall(WidgetRef ref, BuildContext context) async {
+    ref.read(callControllerProvider).createCall(
+        receiverUserName: name,
+        context: context,
+        receiverUid: uid,
+        receiverProfilePic: profilePic,
+        isGroupChat: isGroupChat);
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -58,7 +70,7 @@ class MobileChatScreen extends ConsumerWidget {
         centerTitle: false,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () => createCall(ref, context),
             icon: const Icon(Icons.video_call),
           ),
           IconButton(

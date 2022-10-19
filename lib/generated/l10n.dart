@@ -359,6 +359,16 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Incoming call`
+  String get incoming_call {
+    return Intl.message(
+      'Incoming call',
+      name: 'incoming_call',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

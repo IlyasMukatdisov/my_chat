@@ -40,6 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "fill_all_fields":
             MessageLookupByLibrary.simpleMessage("Fill all fields"),
         "group_name": MessageLookupByLibrary.simpleMessage("Group name"),
+        "incoming_call": MessageLookupByLibrary.simpleMessage("Incoming call"),
         "landing_privacy_terms": MessageLookupByLibrary.simpleMessage(
             "Read our Privacy Policy. Tap \"Agree and continue\" to accept the Terms of Service."),
         "landing_title": MessageLookupByLibrary.simpleMessage("Welcome to"),

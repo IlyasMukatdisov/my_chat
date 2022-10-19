@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_chat/common/utils/utils.dart';
 import 'package:my_chat/common/widgets/error_screen.dart';
 import 'package:my_chat/common/widgets/loader_screen.dart';
+import 'package:my_chat/features/auth/controller/auth_controller.dart';
 import 'package:my_chat/features/select_contact/controller/select_contact_controller.dart';
 import 'package:my_chat/generated/l10n.dart';
 import 'package:my_chat/models/user_model.dart';
@@ -18,13 +19,17 @@ class SelectContactsScreen extends ConsumerWidget {
     required BuildContext context,
     required Contact selectedContact,
   }) async {
+
     ref.read(selectContactControllerProvider).selectContact(
           selectedContact: selectedContact,
           context: context,
           onFound: (UserModel user) {
-            Navigator.of(context).pushNamed(MobileChatScreen.routeName, arguments: {
+            Navigator.of(context)
+                .pushNamed(MobileChatScreen.routeName, arguments: {
               'name': user.name,
-              'uid': user.uid
+              'uid': user.uid,
+              'isGroupChat': false,
+              'profilePic': user.profilePic
             });
           },
           onNotFound: () {

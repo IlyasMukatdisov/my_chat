@@ -40,6 +40,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "fill_all_fields":
             MessageLookupByLibrary.simpleMessage("Заполните все поля"),
         "group_name": MessageLookupByLibrary.simpleMessage("Имя группы"),
+        "incoming_call":
+            MessageLookupByLibrary.simpleMessage("Входящий звонок"),
         "landing_privacy_terms": MessageLookupByLibrary.simpleMessage(
             "Ознакомьтесь с нашей Политикой конфиденциальности. Нажмите \"Принять и продолжить\", чтобы принять Условия использования."),
         "landing_title":

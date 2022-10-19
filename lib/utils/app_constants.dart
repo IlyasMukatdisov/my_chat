@@ -8,4 +8,5 @@ class AppConstants {
   static const messagesCollection = 'messages';
   static const statusCollection = 'status';
   static const groupCollection = 'group';
+  static const callCollection = 'call';
 }
