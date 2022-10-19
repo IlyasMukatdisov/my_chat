@@ -6,6 +6,7 @@ import 'package:my_chat/features/auth/controller/auth_controller.dart';
 
 import 'package:my_chat/features/call/repository/call_repository.dart';
 import 'package:my_chat/models/call.dart';
+import 'package:my_chat/models/user_model.dart';
 import 'package:uuid/uuid.dart';
 
 final callControllerProvider = Provider(
@@ -51,5 +52,17 @@ class CallController {
         context: context,
       );
     });
+  }
+
+  void endCall({
+    required String receiverId,
+    required String callerId,
+    required BuildContext context,
+  }) async {
+    callRepository.endCall(
+      callerId: callerId,
+      receiverId: receiverId,
+      context: context,
+    );
   }
 }

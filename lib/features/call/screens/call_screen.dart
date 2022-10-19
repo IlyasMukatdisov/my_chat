@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_chat/common/widgets/loader_screen.dart';
 import 'package:my_chat/config/agora_config.dart';
+import 'package:my_chat/features/call/controller/call_controller.dart';
 
 import 'package:my_chat/models/call.dart';
 
@@ -31,27 +32,62 @@ class _CallScreenState extends ConsumerState<CallScreen> {
   void initState() {
     super.initState();
     _client = AgoraClient(
-        agoraConnectionData: AgoraConnectionData(
-            appId: AgoraConfig.appId,
-            channelName: widget.channelId,
-            tokenUrl: baseUrl));
+      agoraConnectionData: AgoraConnectionData(
+        appId: AgoraConfig.appId,
+        channelName: widget.channelId,
+        tokenUrl: baseUrl,
+      ),
+    );
     initAgora();
   }
 
   @override
   Widget build(BuildContext context) {
     return _client == null
-        ? LoaderScreen()
+        ? const LoaderScreen()
         : Scaffold(
-            body: SafeArea(
-              child: Stack(
-                children: [
-                  AgoraVideoViewer(client: _client!),
-                  AgoraVideoButtons(client: _client!),
-                ],
+            body: WillPopScope(
+              onWillPop: () async {
+                endCall();
+                return true;
+              },
+              child: SafeArea(
+                child: Stack(
+                  children: [
+                    AgoraVideoViewer(client: _client!),
+                    AgoraVideoButtons(
+                      client: _client!,
+                      disconnectButtonChild: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: Colors.redAccent,
+                        ),
+                        child: IconButton(
+                          onPressed: () {
+                            endCall();
+                            Navigator.pop(context);
+                          },
+                          icon: const Icon(
+                            Icons.call_end,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           );
+  }
+
+  void endCall() async {
+    await _client!.engine.leaveChannel();
+    ref.read(callControllerProvider).endCall(
+          callerId: widget.call.callerId,
+          receiverId: widget.call.receiverId,
+          context: context,
+        );
   }
 
   void initAgora() async {

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_chat/features/call/controller/call_controller.dart';
+import 'package:my_chat/features/call/screens/call_screen.dart';
 import 'package:my_chat/generated/l10n.dart';
 import 'package:my_chat/models/call.dart';
 import 'package:my_chat/utils/app_constants.dart';
@@ -68,7 +69,17 @@ class CallPickUpScreen extends ConsumerWidget {
                               ),
                             ),
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CallScreen(
+                                        channelId: call.callId,
+                                        call: call,
+                                        isGroupChat: false),
+                                  ),
+                                );
+                              },
                               icon: const Icon(
                                 Icons.call,
                                 color: Colors.greenAccent,

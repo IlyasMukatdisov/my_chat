@@ -44,11 +44,34 @@ class CallRepository {
         context,
         MaterialPageRoute(
           builder: (context) => CallScreen(
-              channelId: callData.callId,
-              call: callData,
-              isGroupChat: false),
+            channelId: callData.callId,
+            call: callData,
+            isGroupChat: false,
+          ),
         ),
       );
+    } catch (e) {
+      showSnackBar(
+        context: context,
+        text: AppLocalizations.of(context).cant_create_group,
+      );
+    }
+  }
+
+  void endCall({
+    required String callerId,
+    required String receiverId,
+    required BuildContext context,
+  }) async {
+    try {
+      await firestore
+          .collection(AppConstants.callCollection)
+          .doc(callerId)
+          .delete();
+      await firestore
+          .collection(AppConstants.callCollection)
+          .doc(receiverId)
+          .delete();
     } catch (e) {
       showSnackBar(
         context: context,
