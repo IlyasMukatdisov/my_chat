@@ -15,6 +15,7 @@ import 'package:my_chat/features/chat/widgets/my_message_card.dart';
 import 'package:my_chat/features/chat/widgets/sender_message_card.dart';
 import 'package:my_chat/generated/l10n.dart';
 import 'package:my_chat/models/message.dart';
+import 'package:my_chat/models/user_model.dart';
 import 'package:my_chat/utils/app_constants.dart';
 
 class ChatList extends ConsumerStatefulWidget {
@@ -122,7 +123,8 @@ class _ChatListState extends ConsumerState<ChatList> {
                             );
                       }
 
-                      if (message.senderId != widget.receiverUserId) {
+                      if (message.senderId ==
+                          FirebaseAuth.instance.currentUser!.uid) {
                         return Padding(
                           padding: const EdgeInsets.only(
                               top: AppConstants.defaultPadding / 2),
@@ -156,12 +158,13 @@ class _ChatListState extends ConsumerState<ChatList> {
                             children: [
                               shouldShowDate ? Text(splitDate) : Container(),
                               SenderMessageCard(
-                                message: message.text,
+                                message: message,
                                 date: date,
                                 type: message.type,
                                 repliedText: message.repliedMessage,
                                 repliedType: message.repliedType,
                                 repliedToUser: message.repliedToUser,
+                                isGroupChat: widget.isGroupChat,
                                 onRightSwipe: () {
                                   reply(
                                     replyingMessageOwnerId: message.senderId,

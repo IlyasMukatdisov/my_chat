@@ -10,24 +10,38 @@ class MessageContent extends StatelessWidget {
   final String message;
   final MessageEnum type;
   final bool isReplyPreview;
+  bool? isGroupChat;
+  String? name;
 
   final AudioPlayer audioPlayer = AudioPlayer();
 
-  MessageContent(
-      {Key? key,
-      required this.message,
-      required this.type,
-      this.isReplyPreview = false})
-      : super(key: key);
+  MessageContent({
+    Key? key,
+    required this.message,
+    required this.type,
+    this.isReplyPreview = false,
+    this.isGroupChat,
+    this.name,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     bool isPlaying = false;
     switch (type) {
       case MessageEnum.text:
-        return Text(
-          message,
-          style: const TextStyle(fontSize: 16),
+        return Column(
+          children: [
+            isGroupChat != null ? Text(name ?? 'sender') : const SizedBox(),
+            isGroupChat != null
+                ? const SizedBox(
+                    height: 5,
+                  )
+                : const SizedBox(),
+            Text(
+              message,
+              style: const TextStyle(fontSize: 16),
+            ),
+          ],
         );
       case MessageEnum.audio:
         {
@@ -39,43 +53,76 @@ class MessageContent extends StatelessWidget {
                 });
               });
 
-              return Container(
-                width: 80,
-                alignment: Alignment.center,
-                child: IconButton(
-                  onPressed: () async {
-                    if (isPlaying) {
-                      await audioPlayer.pause();
-                      setState(() {
-                        isPlaying = false;
-                      });
-                    } else {
-                      if (await audioPlayer.getCurrentPosition() ==
-                          const Duration(seconds: 0)) {
-                        await audioPlayer.play(UrlSource(message));
-                      } else {
-                        await audioPlayer.resume();
-                      }
+              return Column(
+                children: [
+                  isGroupChat != null
+                      ? Text(name ?? 'sender')
+                      : const SizedBox(),
+                  isGroupChat != null
+                      ? const SizedBox(
+                          height: 5,
+                        )
+                      : const SizedBox(),
+                  Container(
+                    width: 80,
+                    alignment: Alignment.center,
+                    child: IconButton(
+                      onPressed: () async {
+                        if (isPlaying) {
+                          await audioPlayer.pause();
+                          setState(() {
+                            isPlaying = false;
+                          });
+                        } else {
+                          if (await audioPlayer.getCurrentPosition() ==
+                              const Duration(seconds: 0)) {
+                            await audioPlayer.play(UrlSource(message));
+                          } else {
+                            await audioPlayer.resume();
+                          }
 
-                      setState(() {
-                        isPlaying = true;
-                      });
-                    }
-                  },
-                  icon: Icon(isPlaying ? Icons.stop_circle : Icons.play_circle,
-                      size: 40),
-                ),
+                          setState(() {
+                            isPlaying = true;
+                          });
+                        }
+                      },
+                      icon: Icon(
+                          isPlaying ? Icons.stop_circle : Icons.play_circle,
+                          size: 40),
+                    ),
+                  ),
+                ],
               );
             },
           );
         }
       case MessageEnum.image:
-        return CachedNetworkImage(
-          imageUrl: message,
-          height: isReplyPreview ? 40 : null,
+        return Column(
+          children: [
+            isGroupChat != null ? Text(name ?? 'sender') : const SizedBox(),
+            isGroupChat != null
+                ? const SizedBox(
+                    height: 5,
+                  )
+                : const SizedBox(),
+            CachedNetworkImage(
+              imageUrl: message,
+              height: isReplyPreview ? 40 : null,
+            ),
+          ],
         );
       case MessageEnum.video:
-        return VideoContent(source: message, isReplyPreview: isReplyPreview);
+        return Column(
+          children: [
+            isGroupChat != null ? Text(name ?? 'sender') : const SizedBox(),
+            isGroupChat != null
+                ? const SizedBox(
+                    height: 5,
+                  )
+                : const SizedBox(),
+            VideoContent(source: message, isReplyPreview: isReplyPreview),
+          ],
+        );
 
       default:
         return Container();
