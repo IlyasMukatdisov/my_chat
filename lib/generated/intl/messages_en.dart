@@ -40,7 +40,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "fill_all_fields":
             MessageLookupByLibrary.simpleMessage("Fill all fields"),
         "group_name": MessageLookupByLibrary.simpleMessage("Group name"),
-        "incoming_call": MessageLookupByLibrary.simpleMessage("Incoming call"),
         "landing_privacy_terms": MessageLookupByLibrary.simpleMessage(
             "Read our Privacy Policy. Tap \"Agree and continue\" to accept the Terms of Service."),
         "landing_title": MessageLookupByLibrary.simpleMessage("Welcome to"),
@@ -56,6 +55,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No group messages yet"),
         "no_messages_yet":
             MessageLookupByLibrary.simpleMessage("No messages yet"),
+        "no_statuses": MessageLookupByLibrary.simpleMessage(
+            "No statuses in your contacts"),
         "offline": MessageLookupByLibrary.simpleMessage("Offline"),
         "online": MessageLookupByLibrary.simpleMessage("Online"),
         "page_does_not_exists":

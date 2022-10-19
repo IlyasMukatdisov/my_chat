@@ -30,5 +30,6 @@
     "cant_create_group": "Can't create group",
     "fill_all_fields": "Fill all fields",
     "no_groups_messages_yet": "No group messages yet",
-    "incoming_call": "Incoming call"
+    "no_statuses": "No statuses in your contacts"
+    
 }

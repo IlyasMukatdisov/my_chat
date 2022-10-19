@@ -40,8 +40,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "fill_all_fields":
             MessageLookupByLibrary.simpleMessage("Заполните все поля"),
         "group_name": MessageLookupByLibrary.simpleMessage("Имя группы"),
-        "incoming_call":
-            MessageLookupByLibrary.simpleMessage("Входящий звонок"),
         "landing_privacy_terms": MessageLookupByLibrary.simpleMessage(
             "Ознакомьтесь с нашей Политикой конфиденциальности. Нажмите \"Принять и продолжить\", чтобы принять Условия использования."),
         "landing_title":
@@ -58,6 +56,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Пока нет групповых чатов"),
         "no_messages_yet":
             MessageLookupByLibrary.simpleMessage("Пока нет сообщений"),
+        "no_statuses": MessageLookupByLibrary.simpleMessage(
+            "Нет статусов в ваших контактах"),
         "offline": MessageLookupByLibrary.simpleMessage("Не в сети"),
         "online": MessageLookupByLibrary.simpleMessage("В сети"),
         "page_does_not_exists":

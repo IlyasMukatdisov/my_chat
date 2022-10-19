@@ -30,5 +30,5 @@
     "cant_create_group": "Ошибка создания группы",
     "fill_all_fields": "Заполните все поля",
     "no_groups_messages_yet": "Пока нет групповых чатов",
-    "incoming_call": "Входящий звонок"
+    "no_statuses": "Нет статусов в ваших контактах"
 }

@@ -11,7 +11,9 @@ class MessageContent extends StatelessWidget {
   final MessageEnum type;
   final bool isReplyPreview;
 
-  const MessageContent(
+  final AudioPlayer audioPlayer = AudioPlayer();
+
+  MessageContent(
       {Key? key,
       required this.message,
       required this.type,
@@ -31,14 +33,11 @@ class MessageContent extends StatelessWidget {
         {
           return StatefulBuilder(
             builder: (context, setState) {
-              final AudioPlayer audioPlayer = AudioPlayer();
               audioPlayer.onPlayerComplete.listen((event) {
                 setState(() {
                   isPlaying = false;
                 });
               });
-
-              
 
               return Container(
                 width: 80,
@@ -46,15 +45,21 @@ class MessageContent extends StatelessWidget {
                 child: IconButton(
                   onPressed: () async {
                     if (isPlaying) {
-                      await audioPlayer.stop();
+                      await audioPlayer.pause();
                       setState(() {
                         isPlaying = false;
                       });
                     } else {
+                      if (await audioPlayer.getCurrentPosition() ==
+                          const Duration(seconds: 0)) {
+                        await audioPlayer.play(UrlSource(message));
+                      } else {
+                        await audioPlayer.resume();
+                      }
+
                       setState(() {
                         isPlaying = true;
                       });
-                      await audioPlayer.play(UrlSource(message));
                     }
                   },
                   icon: Icon(isPlaying ? Icons.stop_circle : Icons.play_circle,

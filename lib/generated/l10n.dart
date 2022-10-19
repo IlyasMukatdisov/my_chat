@@ -360,11 +360,11 @@ class AppLocalizations {
     );
   }
 
-  /// `Incoming call`
-  String get incoming_call {
+  /// `No statuses in your contacts`
+  String get no_statuses {
     return Intl.message(
-      'Incoming call',
-      name: 'incoming_call',
+      'No statuses in your contacts',
+      name: 'no_statuses',
       desc: '',
       args: [],
     );

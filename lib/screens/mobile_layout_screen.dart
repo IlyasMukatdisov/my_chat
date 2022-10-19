@@ -29,7 +29,7 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
   void initState() {
     ref.read(authControllerProvider).setUserState(true);
     WidgetsBinding.instance.addObserver(this);
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(() {
       setState(() {
         index = _tabController.index;
@@ -60,7 +60,7 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -120,18 +120,14 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
               Tab(
                 text: AppLocalizations.of(context).status.toUpperCase(),
               ),
-              Tab(
-                text: AppLocalizations.of(context).calls.toUpperCase(),
-              ),
             ],
           ),
         ),
         body: TabBarView(
           controller: _tabController,
-          children: [
-            const ContactsList(),
-            const StatusContactsScreen(),
-            Text(AppLocalizations.of(context).calls.toUpperCase()),
+          children: const [
+            ContactsList(),
+            StatusContactsScreen(),
           ],
         ),
         floatingActionButton: FloatingActionButton(
@@ -151,7 +147,7 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
                   }
                   break;
                 }
-              case 2:
+              default:
                 break;
             }
           },
@@ -161,9 +157,7 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
                 ? Icons.comment
                 : index == 1
                     ? Icons.add_a_photo
-                    : index == 2
-                        ? Icons.call
-                        : Icons.error,
+                    : Icons.error,
             color: Colors.white,
           ),
         ),
