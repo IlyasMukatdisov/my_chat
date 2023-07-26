@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_chat/screens/auth_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'My Chat',
       theme: ThemeData.dark().copyWith(useMaterial3: true),
-      home: Scaffold(),
+      home: const AuthScreen(),
     );
   }
 }
